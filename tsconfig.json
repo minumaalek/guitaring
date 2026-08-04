@@ -19,7 +19,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"],
+      "@/fonts/*": ["./public/fonts/*"],
+      "@/images/*": ["./public/images/*"],
+      "@/layout/*": ["./src/components/layout/*"],
+      "@/templates/*": ["./src/components/templates/*"],
+      "@/modules/*": ["./src/components/modules/*"]
     }
   },
   "include": [

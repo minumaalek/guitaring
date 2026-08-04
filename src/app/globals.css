@@ -5,22 +5,51 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  button {
+    @apply cursor-pointer text-white;
+  }
+  input {
+    @apply bg-white p-2 rounded-md w-full outline-0 focus:bg-blue-50;
+  }
+}
+
+@layer components {
+  .main-gradient {
+    background: #5080e6;
+    background: radial-gradient(
+      circle,
+      rgba(51, 113, 246, 0.415) 0%,
+      rgba(60, 103, 203, 0.6) 100%
+    );
+
+    @apply text-white p-1 rounded-full;
+  }
 }
