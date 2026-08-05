@@ -1,10 +1,10 @@
 import { z } from "zod";
-export type ActionResult = {
+export type ActionResult<T extends z.ZodType> = {
   success: boolean;
   message: string;
-  errors?: z.inferFlattenedErrors<typeof registerSchema>["fieldErrors"];
+  errors?: z.inferFlattenedErrors<T>["fieldErrors"];
 };
-export const registerSchema = z
+export const signUpSchema = z
   .object({
     firstName: z.string().trim().min(2, "First name is too short"),
 
@@ -22,3 +22,8 @@ export const registerSchema = z
     path: ["confirmPassword"],
     message: "Passwords do not match",
   });
+
+export const signInSchema = z.object({
+  email: z.email("Invalid email."),
+  password: z.string().min(1, "Password is required"),
+});

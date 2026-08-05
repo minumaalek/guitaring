@@ -3,20 +3,21 @@
 import { toast } from "sonner";
 import Input from "./items/input";
 import { useForm } from "react-hook-form";
-
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "@/lib/validations/auth";
+import { signUpSchema } from "@/lib/sign-validations";
 import { z } from "zod";
 export default function SignUpForm({ action }) {
-  type RegisterForm = z.infer<typeof registerSchema>;
+  type RegisterForm = z.infer<typeof signUpSchema>;
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterForm>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(signUpSchema),
   });
+  const router = useRouter();
   const onSubmit = async (data: RegisterForm) => {
     const result = await action(data);
 
@@ -25,10 +26,13 @@ export default function SignUpForm({ action }) {
     } else {
       toast.error(result.message);
     }
+    setTimeout(() => {
+      router.push("/account");
+    }, 2000);
   };
 
   return (
-    <div className="w-full h-full flex flex-col rounded-r-3xl items-center justify-center bg-blue-900 gap-3">
+    <div className="w-full  flex items-center justify-center flex-col">
       <h2 className="text-white">Create an account</h2>
 
       <form
@@ -71,10 +75,17 @@ export default function SignUpForm({ action }) {
           placeholder="Confirm password"
           {...register("confirmPassword")}
         />
-        <label>
-          <input type="checkbox" {...register("isTeacher")} />
-          I'm a teacher
-        </label>
+        <div className="w-full flex items-center justify-center">
+          <label className="flex items-center justify-center gap-2 w-full cursor-pointer">
+            <input
+              className="size-4"
+              type="checkbox"
+              {...register("isTeacher")}
+            />
+            <p className=" text-white">I'm a teacher.</p>
+          </label>
+        </div>
+
         <button type="submit" className="bg-blue-700 p-2 rounded-md">
           Sign up
         </button>

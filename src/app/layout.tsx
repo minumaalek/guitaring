@@ -32,7 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full antialiased`}>
       <body className={`${figtree.className} flex flex-col gap-5`}>
-        <Toaster richColors position="top-center" />
+        <Toaster
+          richColors
+          position="top-center"
+          toastOptions={{
+            classNames: {
+              toast: "bg-zinc-900 text-white border border-zinc-700",
+              title: "text-white",
+              description: "text-zinc-400",
+            },
+          }}
+        />
 
         <Layout>{children}</Layout>
       </body>

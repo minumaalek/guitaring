@@ -52,4 +52,7 @@ body {
 
     @apply text-white p-1 rounded-full;
   }
+  .clickable {
+    @apply cursor-pointer text-gray-300 hover:text-white;
+  }
 }
