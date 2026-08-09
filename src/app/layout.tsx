@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased`}>
-      <body className={`${figtree.className} flex flex-col gap-5`}>
+      <body className={`${figtree.className} flex flex-col `}>
         <Toaster
           richColors
           position="top-center"

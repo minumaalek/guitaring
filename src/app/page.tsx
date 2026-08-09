@@ -1,5 +1,7 @@
 import Image from "next/image";
-
+import Slider from "@/components/modules/slider";
+import HomeProducts from "@/components/sections/home-products";
+import NewArticlesSection from "@/components/sections/new-articles";
 export default function Home() {
   return (
     <div className="">
@@ -10,6 +12,10 @@ export default function Home() {
         alt="guitar"
         src="/images/guitar.jpg"
       ></Image>
+      <Slider />
+      <HomeProducts />
+      <NewArticlesSection />
+      <div></div>
     </div>
   );
 }

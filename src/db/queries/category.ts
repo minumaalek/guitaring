@@ -17,3 +17,11 @@ export async function getNavbarCategories(section: string) {
     },
   });
 }
+
+export async function getCategoryById(id) {
+  return db.category.findFirst({
+    where: {
+      id: id,
+    },
+  });
+}

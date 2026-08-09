@@ -1,7 +1,10 @@
 import { signInUser, signUpUser } from "@/actions/auth-actions";
 import FormContainer from "@/components/forms/form-container";
-
-export default function SigninPage() {
+import { getSession } from "@/lib/check-auth";
+import { redirect } from "next/navigation";
+export default async function SigninPage() {
+  const session = await getSession();
+  if (session) redirect("/account");
   return (
     <div className="flex items-center justify-center h-dvh w-screen overflow-hidden">
       <div className="bg-blue-500/70 h-3/4 w-2/3 shadow-xl rounded-3xl p-3 grid grid-cols-2">

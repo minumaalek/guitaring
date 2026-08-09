@@ -1,6 +1,11 @@
 "use server";
+
 import { db } from "@/db";
 import bcrypt from "bcryptjs";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+
 import {
   signUpSchema,
   signInSchema,
@@ -44,52 +49,51 @@ export async function signUpUser(
       isTeacher: result.data.isTeacher,
     },
   });
+  await signIn("credentials", {
+    email: result.data.email,
+    password: result.data.password,
+    redirectTo: "/account",
+  });
+
   return {
     success: true,
     message: "Account created successfully",
   };
 }
 
-export async function signInUser(
-  data: unknown,
-): Promise<ActionResult<typeof signInSchema>> {
+export async function signInUser(data: unknown) {
   const result = signInSchema.safeParse(data);
 
   if (!result.success) {
     return {
       success: false,
       message: "Invalid data",
-      errors: result.error.flatten().fieldErrors,
     };
   }
 
-  const user = await db.user.findUnique({
-    where: {
+  try {
+    await signIn("credentials", {
       email: result.data.email,
-    },
-  });
+      password: result.data.password,
+      redirectTo: "/account",
+    });
 
-  if (!user) {
     return {
-      success: false,
-      message: "Invalid email or password",
+      success: true,
+      message: "Login successful",
     };
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+
+    if (error instanceof AuthError) {
+      return {
+        success: false,
+        message: "Invalid email or password",
+      };
+    }
+
+    throw error;
   }
-
-  const isPasswordValid = await bcrypt.compare(
-    result.data.password,
-    user.password,
-  );
-
-  if (!isPasswordValid) {
-    return {
-      success: false,
-      message: "Invalid email or password",
-    };
-  }
-
-  return {
-    success: true,
-    message: "Login successful",
-  };
 }

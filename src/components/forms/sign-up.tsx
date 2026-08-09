@@ -26,9 +26,9 @@ export default function SignUpForm({ action }) {
     } else {
       toast.error(result.message);
     }
-    setTimeout(() => {
-      router.push("/account");
-    }, 2000);
+    // setTimeout(() => {
+    //   router.push("/account");
+    // }, 2000);
   };
 
   return (

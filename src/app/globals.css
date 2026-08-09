@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@plugin "@tailwindcss/typography";
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -28,16 +28,22 @@ body {
 }
 @layer base {
   h1 {
-    @apply text-3xl;
+    @apply text-3xl font-extrabold;
   }
   h2 {
-    @apply text-2xl;
+    @apply text-2xl font-semibold;
+  }
+  h3 {
+    @apply text-xl font-bold;
   }
   button {
     @apply cursor-pointer text-white;
   }
   input {
     @apply bg-white p-2 rounded-md w-full outline-0 focus:bg-blue-50;
+  }
+  a {
+    @apply text-white;
   }
 }
 
@@ -54,5 +60,23 @@ body {
   }
   .clickable {
     @apply cursor-pointer text-gray-300 hover:text-white;
+  }
+  .price {
+    @apply text-blue-700 font-bold text-xl;
+  }
+  .old-price {
+    @apply line-through text-gray-500;
+  }
+
+  .price::before,
+  .old-price::before {
+    content: "$";
+    margin-left: 2px;
+  }
+  .flex-row-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
   }
 }
