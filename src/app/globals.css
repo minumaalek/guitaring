@@ -27,6 +27,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 @layer base {
+  div,
+  h3 {
+    @apply transition-all duration-200;
+  }
   h1 {
     @apply text-3xl font-extrabold;
   }
@@ -36,6 +40,7 @@ body {
   h3 {
     @apply text-xl font-bold;
   }
+
   button {
     @apply cursor-pointer text-white;
   }
@@ -58,14 +63,23 @@ body {
 
     @apply text-white p-1 rounded-full;
   }
-  .clickable {
+  .card-gradient {
+    background: #0088ff;
+    background: radial-gradient(
+      circle,
+      rgba(0, 136, 255, 0.589) 0%,
+      rgba(110, 138, 204, 0) 100%
+    );
+  }
+  .clickable,
+  a {
     @apply cursor-pointer text-gray-300 hover:text-white;
   }
   .price {
-    @apply text-blue-700 font-bold text-xl;
+    @apply text-white text-2xl font-semibold;
   }
   .old-price {
-    @apply line-through text-gray-500;
+    @apply line-through text-white;
   }
 
   .price::before,
@@ -78,5 +92,15 @@ body {
   }
   .flex-col-center {
     @apply flex flex-col items-center justify-center;
+  }
+  .card {
+    @apply relative flex flex-col border border-blue-400/50 shadow-md shadow-black rounded-3xl p-2 overflow-hidden;
+  }
+  .card h3 {
+    @apply text-white/70 group-hover:text-white text-center;
+  }
+  .card .old-price,
+  .card .price {
+    @apply invisible group-hover:visible;
   }
 }
