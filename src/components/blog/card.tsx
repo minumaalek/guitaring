@@ -1,17 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 export default function ArticleCard({ article }) {
-  const { title, slug, createdAt } = article;
+  const { title, slug, createdAt, coverImage } = article;
   console.log(article);
   return (
     <Link href={`blog/${slug}`}>
       <div className="card w-80 h-36">
-        <Image
-          alt="guitar"
-          src="/images/card.jpg"
-          fill
-          className="object-cover"
-        />
+        <Image alt="guitar" src={coverImage} fill className="object-cover" />
         <div className="w-full h-full absolute bg-blue-300/50 hover:bg-blue-300/20 top-0 right-0 flex items-center justify-center p-10 group">
           <h3>{title}</h3>
           {/* <p>{createdAt.toLocaleDateString()}</p> */}

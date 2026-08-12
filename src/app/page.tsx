@@ -1,21 +1,16 @@
-import Image from "next/image";
-import Slider from "@/components/modules/slider";
 import HomeProducts from "@/components/sections/home-products";
 import NewArticlesSection from "@/components/sections/new-articles";
+import HeroHeader from "@/components/modules/hero-header";
 export default function Home() {
   return (
     <div className="">
-      <header>header</header>
-      <Image
-        width={2000}
-        height={1200}
-        alt="guitar"
-        src="/images/guitar.jpg"
-      ></Image>
-      <Slider />
-      <HomeProducts />
-      <NewArticlesSection />
-      <div></div>
+      <header>
+        <HeroHeader />
+      </header>
+      <div className="flex flex-col gap-4">
+        <HomeProducts />
+        <NewArticlesSection />
+      </div>
     </div>
   );
 }

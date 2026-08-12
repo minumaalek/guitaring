@@ -1,7 +1,8 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { Autoplay, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import Image from "next/image";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,17 +12,23 @@ import "swiper/css/scrollbar";
 export default function Slider() {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Scrollbar]}
+      modules={[Navigation, Autoplay]}
       spaceBetween={20}
       slidesPerView={1}
       speed={500}
       navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
+      loop
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+      }}
+
+      // pagination={{ clickable: true }}
+      // scrollbar={{ draggable: true }}
     >
       <SwiperSlide>
-        <div className="h-64 bg-red-500 flex items-center justify-center">
-          Slide 1
+        <div className="relative h-60 md:h-96 w-full">
+          <Image fill alt="guitar" src="/images/hero.webp" />
         </div>
       </SwiperSlide>
 

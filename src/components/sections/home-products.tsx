@@ -1,5 +1,6 @@
-import ProductsSection from "../modules/products/section";
+import ProductsSection from "../products/section";
 import { getAllProducts } from "@/db/queries/products";
+import ProductSlider from "../sliders/section-slider";
 import Link from "next/link";
 export default async function HomeProducts() {
   const products = await getAllProducts();
