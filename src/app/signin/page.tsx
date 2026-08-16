@@ -1,5 +1,5 @@
 import { signInUser, signUpUser } from "@/actions/auth-actions";
-import FormContainer from "@/components/forms/form-container";
+import FormContainer from "@/components/sign/form-container";
 import { getSession } from "@/lib/check-auth";
 import { redirect } from "next/navigation";
 export default async function SigninPage() {

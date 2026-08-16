@@ -1,11 +1,11 @@
 "use client";
 
 import { toast } from "sonner";
-import Input from "./items/input";
+import Input from "../common/input";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "@/lib/sign-validations";
+import { signInSchema } from "@/lib/validations/sign-validations";
 
 import { z } from "zod";
 export default function SignInForm({ action }) {

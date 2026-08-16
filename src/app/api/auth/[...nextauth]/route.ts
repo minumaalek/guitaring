@@ -1,3 +1,3 @@
-import { handlers } from "@/lib/sign-validations";
+import { handlers } from "@/lib/validations/sign-validations";
 
 export const { GET, POST } = handlers;

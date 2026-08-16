@@ -36,6 +36,9 @@
   font-size: 18px;
   font-weight: 800;
 }
+html {
+  scroll-behavior: smooth;
+}
 @layer base {
   div,
   h3 {
@@ -68,6 +71,12 @@
   }
   html {
     @apply font-sans;
+  }
+  p {
+    @apply text-justify text-lg;
+  }
+  textarea {
+    @apply w-full h-40 bg-white p-1;
   }
 }
 

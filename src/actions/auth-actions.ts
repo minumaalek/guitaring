@@ -10,7 +10,7 @@ import {
   signUpSchema,
   signInSchema,
   ActionResult,
-} from "@/lib/sign-validations";
+} from "@/lib/validations/sign-validations";
 
 export async function signUpUser(
   data: unknown,
