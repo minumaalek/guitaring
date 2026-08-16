@@ -1,5 +1,5 @@
 import { getArticleById } from "@/db/queries/blog";
-import ArticleForm from "@/components/blog/article-form";
+import ArticleForm from "@/components/admin/article-form";
 interface EditArticleProps {
   params: Promise<{
     articleId: string;

@@ -13,7 +13,7 @@ export default function ArticleForm({ article }) {
 
   return (
     <form action={editAction}>
-      <div className="w-1/2 flex flex-col gap-3">
+      <div className="w-full flex flex-col gap-3">
         <input
           name="title"
           placeholder="title"

@@ -98,10 +98,10 @@ export default function MarkdownEditor({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Write your article in Markdown..."
-          className="min-h-[500px] resize-none p-4 outline-none"
+          className="min-h-96 resize-none p-4 outline-none"
         />
 
-        <div className="min-h-[500px] border-l p-4 prose">
+        <div className="min-h-96 border-l p-4 prose">
           <ReactMarkdown>{value}</ReactMarkdown>
         </div>
       </div>
