@@ -1,7 +1,6 @@
 import { getAllArticles } from "@/db/queries/blog";
 import { Edit, Plus } from "lucide-react";
 import { deleteArticle } from "@/actions/article-actions";
-import ActionForm from "@/components/admin/action-form";
 import DeleteArticleButton from "@/components/admin/delete-article-button";
 
 import Link from "next/link";
@@ -31,7 +30,6 @@ export default async function ArticlesPanel() {
       <ul>
         {articles.map((article) => {
           const deleteAction = deleteArticle.bind(null, article.id);
-          const formId = `delete-article-${article.id}`;
 
           return (
             <li key={article.id}>
@@ -47,9 +45,7 @@ export default async function ArticlesPanel() {
                     <Edit className="stroke-black" />
                   </Link>
 
-                  <ActionForm action={deleteAction} id={formId}>
-                    <DeleteArticleButton formId={formId} />
-                  </ActionForm>
+                  <ActionForm action={deleteAction} />
                 </div>
               </div>
             </li>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
 import { Trash } from "lucide-react";
 
 import {
@@ -15,11 +15,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-interface DeleteButtonProps {
-  formId: string;
+interface ActionFormProps {
+  action: (formData: FormData) => void | Promise<void>;
+  children?: ReactNode;
 }
 
-export default function DeleteArticleButton({ formId }: DeleteButtonProps) {
+export default function DeleteArticleButton({ action }: ActionFormProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -33,20 +34,17 @@ export default function DeleteArticleButton({ formId }: DeleteButtonProps) {
           <AlertDialogTitle>Delete article?</AlertDialogTitle>
 
           <AlertDialogDescription>
-            This action cannot be undone. The article will be permanently
-            deleted.
+            Are you sure you want to delete this article?
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction
-            onClick={() => {
-              document.getElementById(formId)?.requestSubmit();
-            }}
-          >
-            Delete
+          <AlertDialogAction asChild>
+            <form action={action}>
+              <button type="submit">Delete</button>
+            </form>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
