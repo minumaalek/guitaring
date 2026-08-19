@@ -82,6 +82,7 @@ Start with your budget, think about the music you enjoy, compare a few models, a
 [Explore our guitar collection](/products/guitars)`;
 
   const headings = getHeadings(content);
+  console.log("CONTENT:", JSON.stringify(content));
 
   console.log(headings);
   return (

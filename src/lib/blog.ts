@@ -5,11 +5,12 @@ export interface Heading {
 }
 
 export function getHeadings(content: string): Heading[] {
-  const lines = content.split("\n");
+  const lines = content.split(/\r?\n/);
 
   return lines
     .map((line) => {
       const match = line.match(/^(#{2,3})\s+(.+)$/);
+      console.log("MATCH:", match);
 
       if (!match) return null;
 

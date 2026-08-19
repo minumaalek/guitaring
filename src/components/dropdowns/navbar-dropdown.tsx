@@ -1,25 +1,19 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 
 export default function NavbarDropdown({ category, title }) {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger className="text-white outline-0">
-        {title}
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content className="rounded-lg border bg-white p-2 shadow-lg z-50">
-          {category.map((item) => {
-            return (
-              <DropdownMenu.Item
-                key={item.id}
-                className="p-2 rounded-md outline-0 hover:bg-gray-200 cursor-pointer"
-              >
-                {item.name}
-              </DropdownMenu.Item>
-            );
-          })}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+    <div className="relative group">
+      <Link href={title.toLowerCase()}>{title}</Link>
+      <ul className="absolute bg-white invisible group-hover:visible rounded-sm w-20 flex flex-col gap-1">
+        {category.map((cate) => {
+          return (
+            <li className="p-1 rounded-sm bg-gray-100 hover:bg-gray-200 overflow-hidden cursor-pointer">
+              {cate.name}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

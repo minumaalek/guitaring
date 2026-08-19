@@ -1,12 +1,6 @@
-"use client";
-
-export default function AdminSidebar() {
-  const optionsMap = [
-    { key: 1, title: "Articles list", href: "articles" },
-    { key: 2, title: "Add article", href: "articles/new" },
-    { key: 3, title: "Products list", href: "products" },
-  ];
-
-  if (!isAccountPage) return null;
-  return <div></div>;
+import UserSidebarItems from "./sidebar-items";
+import { getSession } from "@/lib/check-auth";
+export default async function UserSidebar() {
+  const session = await getSession();
+  return <UserSidebarItems isTeacher={session?.user.isTeacher} />;
 }

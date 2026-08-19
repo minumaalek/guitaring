@@ -14,7 +14,7 @@ export default async function Navbar() {
     <div className="flex justify-between bg-blue-500/70 backdrop-blur-sm p-2 w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-black/10">
       <div className="flex ">
         <Logo />
-        <div className="flex gap-2 justify-center items-center">
+        <div className="flex gap-10 justify-center items-center">
           <NavbarDropdown category={coursesCategories} title="Courses" />
           <NavbarDropdown category={productsCategories} title="Products" />
           <Link href={"/blog"}>Blog</Link>
