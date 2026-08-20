@@ -8,8 +8,13 @@ export default function NavbarDropdown({ category, title }) {
       <ul className="absolute bg-white invisible group-hover:visible rounded-sm w-20 flex flex-col gap-1">
         {category.map((cate) => {
           return (
-            <li className="p-1 rounded-sm bg-gray-100 hover:bg-gray-200 overflow-hidden cursor-pointer">
-              {cate.name}
+            <li
+              key={cate.id}
+              className="p-1 rounded-sm bg-gray-100 hover:bg-gray-200 overflow-hidden cursor-pointer"
+            >
+              <Link href={`/${title.toLowerCase()}/${cate.slug}`}>
+                {cate.name}
+              </Link>
             </li>
           );
         })}

@@ -1,20 +1,28 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ArrowBigLeft } from "lucide-react";
 export default function UserSidebarItems({ isTeacher }) {
   const optionsMap = [
-    { key: 1, title: "Joined courses", href: "user-courses" },
+    { key: 0, title: "Home", href: "/(site)" },
+    { key: 1, title: "Checkout", href: "checkout" },
+    { key: 2, title: "Joined courses", href: "user-courses" },
     ...(isTeacher
-      ? [{ key: 2, title: "My courses", href: "teacher-courses" }]
+      ? [{ key: 3, title: "My courses", href: "teacher-courses" }]
       : []),
-    { key: 3, title: "Edit profile", href: "edit-profile" },
-    { key: 4, title: "Settings", href: "settings" },
+    { key: 4, title: "Purchases", href: "purchases" },
+    { key: 5, title: "Edit profile", href: "edit-profile" },
+    { key: 6, title: "Settings", href: "settings" },
   ];
   const [selectedKey, setSelectedKey] = useState(0);
   const pathName = usePathname().split("/")[2];
+  const router = useRouter();
   return (
     <div className="h-full w-1/4 main-gradient rounded-none shadow-2xl flex items-center justify-center flex-col">
+      <button onClick={() => router.back()}>
+        <ArrowBigLeft />
+      </button>
       <Link href={"/account"}>
         <h2>{isTeacher ? "Teacher" : "Student"} dashboard</h2>
       </Link>

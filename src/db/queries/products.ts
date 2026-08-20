@@ -10,7 +10,13 @@ export async function getNewProducts() {
     },
   });
 }
-
+export async function getProductBySlug(slug: string) {
+  return db.product.findUnique({
+    where: {
+      slug,
+    },
+  });
+}
 // export async function getPopularProducts() {
 //   return db.product.findMany({
 //     take: 4,
@@ -19,3 +25,33 @@ export async function getNewProducts() {
 //     },
 //   });
 // }
+
+export async function getUserProducts(userId: string) {
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      products: true,
+    },
+  });
+
+  return user?.products ?? [];
+}
+
+export async function getPendingProducts(userId: string) {
+  const cart = await db.cart.findUnique({
+    where: {
+      userId,
+    },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
+
+  return cart?.items ?? [];
+}

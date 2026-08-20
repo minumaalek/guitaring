@@ -35,7 +35,7 @@ export default function RootLayout({
       <body
         className={`${figtree.className} flex flex-col relative min-h-screen`}
       >
-        <div className="fixed inset-0 -z-10">
+        <div className="fixed inset-0 -z-10 pointer-events-none">
           <Grainient
             color1="#ffffff"
             color2="#bbcaff"
