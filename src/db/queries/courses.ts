@@ -32,3 +32,9 @@ export async function getUserCourses(userId: string) {
     },
   });
 }
+
+export async function getTeacherCourses(teacherId) {
+  return db.course.findMany({
+    where: { teacherId: teacherId },
+  });
+}

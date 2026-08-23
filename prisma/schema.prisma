@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -31,18 +29,13 @@ model User {
 
   cart Cart?
 
-  courses  Course[]
-  products Product[]
-
   enrollments CourseEnrollment[]
+  coursesTaught Course[] @relation("TeacherCourses")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   comments Comment[]
-
-  studentCourses Course[] @relation("StudentCourses")
-  coursesTaught  Course[] @relation("TeacherCourses")
 }
 
 model Account {
@@ -113,16 +106,15 @@ model Product {
   category   Category @relation(fields: [categoryId], references: [id])
 
   cartItems CartItem[]
-  users     User[]
 }
 
 model Course {
-  id          Int    @id @default(autoincrement())
-  title       String
-  slug        String @unique
-  description String
-  content     String
-
+  id            Int     @id @default(autoincrement())
+  title         String
+  slug          String  @unique
+  description   String
+  content       String
+  published     Boolean @default(false)
   originalPrice Int
   newPrice      Int
 
@@ -130,12 +122,9 @@ model Course {
   category   Category @relation(fields: [categoryId], references: [id])
 
   teacherId String
-  teacher   User   @relation("TeacherCourses", fields: [teacherId], references: [id])
+  teacher   User @relation("TeacherCourses", fields: [teacherId], references: [id])
 
-  students    User[]             @relation("StudentCourses")
   enrollments CourseEnrollment[]
-  user        User?              @relation(fields: [userId], references: [id])
-  userId      String?
 }
 
 model Article {
@@ -186,7 +175,7 @@ model CourseEnrollment {
   id String @id @default(cuid())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   courseId Int
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -205,7 +194,7 @@ model Comment {
   createdAt DateTime @default(now())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
 
   targetType CommentTarget
   targetId   Int

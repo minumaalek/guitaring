@@ -8,6 +8,9 @@ export default function AdminSidebar() {
     { key: 1, title: "Articles list", href: "articles" },
     { key: 2, title: "Add article", href: "articles/new" },
     { key: 3, title: "Products list", href: "products" },
+    { key: 4, title: "Teachers", href: "teachers" },
+    { key: 5, title: "Courses", href: "courses" },
+    { key: 6, title: "Students", href: "students" },
   ];
   const [selectedKey, setSelectedKey] = useState(0);
 

@@ -45,7 +45,7 @@ export default async function ArticlesPanel() {
                     <Edit className="stroke-black" />
                   </Link>
 
-                  <ActionForm action={deleteAction} />
+                  <DeleteArticleButton action={deleteAction} />
                 </div>
               </div>
             </li>
