@@ -1,4 +1,14 @@
 import { db } from "..";
+export async function getAllCategories() {
+  return db.category.findMany();
+}
+export async function getCourseCategories() {
+  return db.category.findMany({
+    where: {
+      section: "courses",
+    },
+  });
+}
 export async function getNavbarCategories(section: string) {
   return db.category.findMany({
     where: {

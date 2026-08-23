@@ -1,5 +1,7 @@
 import { addProductToCart } from "@/actions/product-actions";
 import { getProductBySlug } from "@/db/queries/products";
+import CommentSection from "@/components/comments/comment-section";
+import CommentsList from "@/components/comments/comments-list";
 interface ProductPageProps {
   params: Promise<{
     product: string;
@@ -20,6 +22,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           Buy
         </button>
       </form>
+      <CommentSection targetType="PRODUCT" targetId={productItem.id} />
+      <div>
+        <CommentsList targetType="PRODUCT" targetId={productItem.id} />
+      </div>
     </div>
   );
 }

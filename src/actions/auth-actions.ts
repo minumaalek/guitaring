@@ -5,6 +5,11 @@ import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { auth } from "@/auth";
+import {
+  updateProfileSchema,
+  changePasswordSchema,
+} from "@/lib/validations/update-user-validations";
 
 import {
   signUpSchema,
@@ -95,5 +100,132 @@ export async function signInUser(data: unknown) {
     }
 
     throw error;
+  }
+}
+
+export async function updateProfile(formData: FormData) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return {
+      success: false,
+      message: "You must be logged in.",
+    };
+  }
+
+  const data = {
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+    email: formData.get("email"),
+    isTeacher: formData.get("isTeacher") === "on",
+  };
+
+  const result = updateProfileSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      message: "Invalid data.",
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const updatedUser = await db.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: {
+        firstName: result.data.firstName,
+        lastName: result.data.lastName,
+        email: result.data.email,
+        isTeacher: result.data.isTeacher,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Profile updated successfully.",
+    };
+  } catch (error) {
+    console.error("UPDATE ERROR:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong.",
+    };
+  }
+}
+
+export async function changePassword(data: unknown) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return {
+      success: false,
+      message: "You must be logged in.",
+    };
+  }
+
+  const result = changePasswordSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      message: "Invalid data.",
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  const { currentPassword, newPassword } = result.data;
+
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: "User not found.",
+      };
+    }
+
+    const passwordIsCorrect = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
+
+    if (!passwordIsCorrect) {
+      return {
+        success: false,
+        message: "Current password is incorrect.",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await db.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Password changed successfully.",
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      message: "Something went wrong.",
+    };
   }
 }

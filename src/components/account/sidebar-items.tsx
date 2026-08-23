@@ -5,15 +5,17 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArrowBigLeft } from "lucide-react";
 export default function UserSidebarItems({ isTeacher }) {
   const optionsMap = [
-    { key: 0, title: "Home", href: "/(site)" },
-    { key: 1, title: "Checkout", href: "checkout" },
-    { key: 2, title: "Joined courses", href: "user-courses" },
+    // { key: 0, title: "Home", href: "/(site)" },
+    { key: 1, title: "Edit profile", href: "edit-profile" },
+    { key: 2, title: "Checkout", href: "checkout" },
+    { key: 3, title: "Joined courses", href: "user-courses" },
     ...(isTeacher
-      ? [{ key: 3, title: "My courses", href: "teacher-courses" }]
+      ? [{ key: 4, title: "My courses", href: "teacher-courses" }]
       : []),
-    { key: 4, title: "Purchases", href: "purchases" },
-    { key: 5, title: "Edit profile", href: "edit-profile" },
-    { key: 6, title: "Settings", href: "settings" },
+    ...(isTeacher ? [{ key: 5, title: "New course", href: "new-course" }] : []),
+    { key: 6, title: "Purchases", href: "purchases" },
+    { key: 7, title: "Settings", href: "settings" },
+    { key: 8, title: "Exit", href: "" },
   ];
   const [selectedKey, setSelectedKey] = useState(0);
   const pathName = usePathname().split("/")[2];
@@ -28,8 +30,7 @@ export default function UserSidebarItems({ isTeacher }) {
       </Link>
       <div className="flex flex-col items-start w-full p-10 gap-2">
         {optionsMap.map((option) => {
-          const isSelected =
-            selectedKey == option.key || pathName == option.href;
+          const isSelected = pathName == option.href;
 
           return (
             <Link
