@@ -31,49 +31,45 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased`}>
-      <body
-        className={`${figtree.className} flex flex-col relative min-h-screen`}
-      >
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <Grainient
-            color1="#ffffff"
-            color2="#bbcaff"
-            color3="#79b1ff"
-            timeSpeed={0.3}
-            colorBalance={0.77}
-            warpStrength={3.45}
-            warpFrequency={3.9}
-            warpSpeed={0.6}
-            warpAmplitude={66}
-            blendAngle={131}
-            blendSoftness={1}
-            rotationAmount={0}
-            noiseScale={0}
-            grainAmount={0}
-            grainScale={4.2}
-            grainAnimated={false}
-            contrast={1.3}
-            gamma={1.05}
-            saturation={1}
-            centerX={0}
-            centerY={0}
-            zoom={0.9}
-          />
-        </div>
-        <Toaster
-          richColors
-          position="top-center"
-          toastOptions={{
-            classNames: {
-              toast: "bg-zinc-900 text-white border border-zinc-700",
-              title: "text-white",
-              description: "text-zinc-400",
-            },
-          }}
+    <div className={`${figtree.className} flex flex-col`}>
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <Grainient
+          color1="#ffffff"
+          color2="#bbcaff"
+          color3="#79b1ff"
+          timeSpeed={0.3}
+          colorBalance={0.77}
+          warpStrength={3.45}
+          warpFrequency={3.9}
+          warpSpeed={0.6}
+          warpAmplitude={66}
+          blendAngle={131}
+          blendSoftness={1}
+          rotationAmount={0}
+          noiseScale={0}
+          grainAmount={0}
+          grainScale={4.2}
+          grainAnimated={false}
+          contrast={1.3}
+          gamma={1.05}
+          saturation={1}
+          centerX={0}
+          centerY={0}
+          zoom={0.9}
         />
-        {children}
-      </body>
-    </html>
+      </div>
+      <Toaster
+        richColors
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: "bg-zinc-900 text-white border border-zinc-700",
+            title: "text-white",
+            description: "text-zinc-400",
+          },
+        }}
+      />
+      {children}
+    </div>
   );
 }

@@ -105,3 +105,13 @@ Start with your budget, think about the music you enjoy, compare a few models, a
     </article>
   );
 }
+
+export const generateMetadata = async ({ params }: ArticlePageProps) => {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
+
+  return {
+    title: article.title,
+    description: article?.description,
+  };
+};

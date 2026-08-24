@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowBigLeft } from "lucide-react";
+import { logoutUser } from "@/actions/user-actions";
 export default function UserSidebarItems({ isTeacher }) {
   const optionsMap = [
     // { key: 0, title: "Home", href: "/(site)" },
@@ -15,7 +16,6 @@ export default function UserSidebarItems({ isTeacher }) {
     ...(isTeacher ? [{ key: 5, title: "New course", href: "new-course" }] : []),
     { key: 6, title: "Purchases", href: "purchases" },
     { key: 7, title: "Settings", href: "settings" },
-    { key: 8, title: "Exit", href: "" },
   ];
   const [selectedKey, setSelectedKey] = useState(0);
   const pathName = usePathname().split("/")[2];
@@ -46,6 +46,14 @@ export default function UserSidebarItems({ isTeacher }) {
             </Link>
           );
         })}
+        <form action={logoutUser}>
+          <button
+            type="submit"
+            className="bg-blue-500/50 p-1 w-60 rounded-md text-xl text-left"
+          >
+            Exit
+          </button>
+        </form>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { adminLogout } from "@/actions/admin-actions";
 
 export default function AdminSidebar() {
   const optionsMap = [
@@ -39,6 +40,14 @@ export default function AdminSidebar() {
             </Link>
           );
         })}
+        <form action={adminLogout}>
+          <button
+            type="submit"
+            className="bg-blue-500/50 p-1 w-60 rounded-md text-xl text-left"
+          >
+            Exit
+          </button>
+        </form>
       </div>
     </div>
   );
