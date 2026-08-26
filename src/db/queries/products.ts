@@ -55,3 +55,11 @@ export async function getPendingProducts(userId: string) {
 
   return cart?.items ?? [];
 }
+
+export async function getProductById(productId) {
+  return db.product.findUnique({
+    where: {
+      id: productId,
+    },
+  });
+}

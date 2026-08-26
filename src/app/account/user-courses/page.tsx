@@ -4,6 +4,7 @@ import { getSession } from "@/lib/check-auth";
 import { redirect } from "next/navigation";
 export default async function UserCourses() {
   const userCourses = await getAllCourses();
+  const session = await getSession();
   if (!session?.user.isTeacher) return redirect("");
   return (
     <div>

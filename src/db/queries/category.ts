@@ -9,6 +9,13 @@ export async function getCourseCategories() {
     },
   });
 }
+export async function getProductCategories() {
+  return db.category.findMany({
+    where: {
+      section: "products",
+    },
+  });
+}
 export async function getNavbarCategories(section: string) {
   return db.category.findMany({
     where: {

@@ -7,8 +7,8 @@ import { adminLogout } from "@/actions/admin-actions";
 export default function AdminSidebar() {
   const optionsMap = [
     { key: 1, title: "Articles list", href: "articles" },
-    { key: 2, title: "Add article", href: "articles/new" },
-    { key: 3, title: "Products list", href: "products" },
+    { key: 2, title: "Products list", href: "products" },
+    { key: 3, title: "Add product", href: "products/new" },
     { key: 4, title: "Teachers", href: "teachers" },
     { key: 5, title: "Courses", href: "courses" },
     { key: 6, title: "Students", href: "students" },

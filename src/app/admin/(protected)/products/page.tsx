@@ -1,18 +1,17 @@
 import { getAllProducts } from "@/db/queries/products";
+import PanelItemsList from "@/components/modules/panel-items-list";
+import { deleteProduct } from "@/actions/product-actions";
 export default async function ProductsPage() {
   const products = await getAllProducts();
   return (
     <div>
       <div>
-        <h1>products</h1>
-        <ul>
-          {products.length
-            ? products.map((product) => {
-                return <li key={product.id}>{product.title}</li>;
-              })
-            : "no product yet"}
-        </ul>
-      </div>{" "}
+        <PanelItemsList
+          title={"Products"}
+          items={products}
+          deleteIt={deleteProduct}
+        />
+      </div>
     </div>
   );
 }
