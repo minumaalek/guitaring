@@ -154,7 +154,7 @@ export async function editProduct(productId: number, formData: FormData) {
     };
   }
 
-  const product = await db.article.update({
+  const product = await db.product.update({
     where: {
       id: productId,
     },

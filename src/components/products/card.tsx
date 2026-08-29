@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCategoryById } from "@/db/queries/category";
+import { getCategoryById } from "@/db/queries/categories";
 import Image from "next/image";
 export default async function ProductCard({ product }) {
   const { title, originalPrice, newPrice, slug, id, image } = product;

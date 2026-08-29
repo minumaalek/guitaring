@@ -2,20 +2,14 @@ import { db } from "..";
 export async function getAllCategories() {
   return db.category.findMany();
 }
-export async function getCourseCategories() {
+export async function getCategoriesBySection(section) {
   return db.category.findMany({
     where: {
-      section: "courses",
+      section,
     },
   });
 }
-export async function getProductCategories() {
-  return db.category.findMany({
-    where: {
-      section: "products",
-    },
-  });
-}
+
 export async function getNavbarCategories(section: string) {
   return db.category.findMany({
     where: {

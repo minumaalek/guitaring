@@ -1,6 +1,10 @@
 import { db } from "@/db";
 export async function getAllProducts() {
-  return db.product.findMany();
+  return db.product.findMany({
+    include: {
+      admin: true,
+    },
+  });
 }
 export async function getNewProducts() {
   return db.product.findMany({

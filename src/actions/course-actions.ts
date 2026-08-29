@@ -3,6 +3,8 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";
+import { courseSchema } from "@/lib/validations";
+import { requireAdmin } from "@/lib/admin-auth";
 
 export async function enrollInCourse(courseId: number) {
   const session = await auth();
@@ -159,4 +161,81 @@ export async function createCourse(formData: FormData) {
       message: "Something went wrong while creating the course.",
     };
   }
+}
+
+export async function deleteCourse(courseId: number) {
+  try {
+    await db.course.delete({
+      where: {
+        id: courseId,
+      },
+    });
+
+    revalidatePath("/admin/courses");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: "Failed to delete course",
+    };
+  }
+}
+
+export async function editCourse(courseId: number, formData: FormData) {
+  const data = {
+    title: formData.get("title"),
+    description: formData.get("description"),
+    slug: formData.get("slug"),
+    content: formData.get("content"),
+  };
+
+  const result = courseSchema.safeParse(data);
+
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  const course = await db.course.update({
+    where: {
+      id: courseId,
+    },
+    data: result.data,
+  });
+
+  return {
+    success: true,
+    course,
+  };
+}
+
+export async function publishCourse(
+  status: boolean,
+  courseId: number,
+  _prevState: { success: boolean },
+  _formData: FormData,
+) {
+  await requireAdmin();
+
+  await db.course.update({
+    where: {
+      id: courseId,
+    },
+    data: {
+      published: status,
+    },
+  });
+
+  revalidatePath("/admin/courses");
+
+  return {
+    success: true,
+  };
 }

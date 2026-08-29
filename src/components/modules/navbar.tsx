@@ -1,6 +1,6 @@
 import Logo from "../common/logo";
 import NavbarDropdown from "../dropdowns/navbar-dropdown";
-import { getNavbarCategories } from "@/db/queries/category";
+import { getNavbarCategories } from "@/db/queries/categories";
 import Link from "next/link";
 import { UserRound } from "lucide-react";
 import { getSession } from "@/lib/check-auth";

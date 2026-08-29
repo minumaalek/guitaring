@@ -8,4 +8,5 @@ export const articleSchema = z.object({
   slug: z.string().trim().min(3, "Slug must be at least 3 characters"),
 
   content: z.string().trim().min(1, "Content is required"),
+  adminId: z.string(),
 });

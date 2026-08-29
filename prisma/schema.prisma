@@ -93,12 +93,12 @@ model Category {
 }
 
 model Product {
-  id      Int     @id @default(autoincrement())
-  title   String
-  slug    String  @unique
+  id          Int     @id @default(autoincrement())
+  title       String
+  slug        String  @unique
   description String?
-  content String?
-  adminId String?
+  content     String?
+  adminId     String?
 
   originalPrice Float
   newPrice      Float
@@ -109,6 +109,11 @@ model Product {
   category   Category @relation(fields: [categoryId], references: [id])
 
   cartItems CartItem[]
+
+  admin Admin? @relation(fields: [adminId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Course {
@@ -128,6 +133,9 @@ model Course {
   teacher   User   @relation("TeacherCourses", fields: [teacherId], references: [id])
 
   enrollments CourseEnrollment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Article {
@@ -137,10 +145,13 @@ model Article {
   description String?
   content     String
   coverImage  String?
+  adminId     String?
   published   Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  admin Admin? @relation(fields: [adminId], references: [id])
 }
 
 model Cart {
@@ -217,6 +228,9 @@ model Admin {
   password  String
   createdAt DateTime       @default(now())
   sessions  AdminSession[]
+
+  articles Article[]
+  products Product[]
 }
 
 model AdminSession {

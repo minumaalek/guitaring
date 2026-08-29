@@ -1,6 +1,10 @@
 import { db } from "..";
 export async function getAllArticles() {
-  return db.article.findMany();
+  return db.article.findMany({
+    include: {
+      admin: true,
+    },
+  });
 }
 
 export async function getArticleBySlug(slug: string) {

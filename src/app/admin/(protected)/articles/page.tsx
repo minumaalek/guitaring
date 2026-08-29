@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/db/queries/blog";
+import { getAllArticles } from "@/db/queries/articles";
 import { Edit, Plus } from "lucide-react";
 import { deleteArticle } from "@/actions/article-actions";
 import DeleteButton from "@/components/admin/delete-article-button";

@@ -3,13 +3,16 @@
 import { db } from "@/db";
 import { articleSchema } from "@/lib/validations/article-validation";
 import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/lib/admin-auth";
 
 export async function createArticle(formData: FormData) {
+  const admin = await requireAdmin();
   const data = {
     title: formData.get("title"),
     description: formData.get("description"),
     slug: formData.get("slug"),
     content: formData.get("content"),
+    adminId: admin.id,
   };
 
   const result = articleSchema.safeParse(data);

@@ -1,6 +1,10 @@
 import { db } from "..";
 export async function getAllCourses() {
-  return db.course.findMany();
+  return db.course.findMany({
+    include: {
+      teacher: true,
+    },
+  });
 }
 export async function getCourseBySlug(slug: string) {
   return db.course.findUnique({
@@ -36,5 +40,13 @@ export async function getUserCourses(userId: string) {
 export async function getTeacherCourses(teacherId) {
   return db.course.findMany({
     where: { teacherId: teacherId },
+  });
+}
+
+export async function getCourseById(courseId) {
+  return db.course.findUnique({
+    where: {
+      id: courseId,
+    },
   });
 }

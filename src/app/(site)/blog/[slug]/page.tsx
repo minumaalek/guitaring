@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getArticleBySlug } from "@/db/queries/blog";
+import { getArticleBySlug } from "@/db/queries/articles";
 import ArticleContent from "@/components/blog/article-content";
 import Image from "next/image";
 import TableOfContents from "@/components/blog/toc";

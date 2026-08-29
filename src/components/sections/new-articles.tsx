@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/db/queries/blog";
+import { getAllArticles } from "@/db/queries/articles";
 import ArticleCard from "../blog/card";
 import Link from "next/link";
 export default async function NewArticlesSection() {

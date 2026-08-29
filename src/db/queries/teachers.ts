@@ -6,3 +6,8 @@ export async function getAllTeachers() {
     },
   });
 }
+
+export async function getTeacherById(teacherId) {
+  const teachers = await getAllTeachers();
+  return teachers.find((teacher) => teacherId == teacher.id);
+}
