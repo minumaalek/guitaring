@@ -12,8 +12,8 @@ export default function CourseCard({
     <Link href={`/courses/${category}/${slug}`}>
       <div className="size-72 border-2 border-blue-400 rounded-2xl p-1 flex flex-col text-black">
         <div className="rounded-t-2xl bg-blue-500 w-full h-1/2"></div>
-        <div className="flex flex-col justify-between gap-1">
-          <div>
+        <div className="flex flex-col justify-between gap-1 h-1/2">
+          <div className="h-1/3">
             <h3>{title}</h3>
             <span>{description}</span>
           </div>

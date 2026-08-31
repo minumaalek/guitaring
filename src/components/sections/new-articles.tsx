@@ -1,5 +1,5 @@
 import { getAllArticles } from "@/db/queries/articles";
-import ArticleCard from "../blog/card";
+import ArticleCard from "../blog/article-card";
 import Link from "next/link";
 export default async function NewArticlesSection() {
   const articles = await getAllArticles();

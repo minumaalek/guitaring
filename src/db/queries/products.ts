@@ -67,3 +67,25 @@ export async function getProductById(productId) {
     },
   });
 }
+
+export async function getProductsByCategory(categoryName: string) {
+  const category = await db.category.findFirst({
+    where: {
+      slug: categoryName,
+    },
+  });
+  if (!category) {
+    return [];
+  }
+
+  const products = await db.product.findMany({
+    where: {
+      categoryId: category.id,
+    },
+    include: {
+      category: true,
+    },
+  });
+
+  return products;
+}

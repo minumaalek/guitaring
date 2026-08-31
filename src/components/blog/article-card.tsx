@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 export default function ArticleCard({ article }) {
   const { title, slug, createdAt, coverImage } = article;
-  console.log(article);
   return (
     <Link href={`blog/${slug}`}>
       <div className="card w-80 h-36">

@@ -29,10 +29,26 @@ export async function getNavbarCategories(section: string) {
   });
 }
 
-export async function getCategoryById(id) {
+export async function getCategoryById(id: number) {
   return db.category.findFirst({
     where: {
       id: id,
+    },
+  });
+}
+
+export async function getSubCategories(categoryName: string) {
+  const category = await db.category.findFirst({
+    where: {
+      slug: categoryName,
+    },
+  });
+  if (!category) {
+    return [];
+  }
+  return db.category.findMany({
+    where: {
+      parentId: category.id,
     },
   });
 }

@@ -1,4 +1,4 @@
-import ProductCard from "./card";
+import ProductCard from "./product-card";
 import ProductSlider from "../sliders/section-slider";
 
 export default async function ProductsSection({ products }) {
