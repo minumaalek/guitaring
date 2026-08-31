@@ -13,9 +13,8 @@ export default function UserSidebarItems({ isTeacher }) {
     ...(isTeacher
       ? [{ key: 4, title: "My courses", href: "teacher-courses" }]
       : []),
-    ...(isTeacher ? [{ key: 5, title: "New course", href: "new-course" }] : []),
-    { key: 6, title: "Purchases", href: "purchases" },
-    { key: 7, title: "Settings", href: "settings" },
+    { key: 5, title: "Purchases", href: "purchases" },
+    { key: 6, title: "Settings", href: "settings" },
   ];
   const [selectedKey, setSelectedKey] = useState(0);
   const pathName = usePathname().split("/")[2];

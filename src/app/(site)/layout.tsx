@@ -35,22 +35,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased`}>
-      <body className={`${figtree.className} flex flex-col`}>
-        <Toaster
-          richColors
-          position="top-center"
-          toastOptions={{
-            classNames: {
-              toast: "bg-zinc-900 text-white border border-zinc-700",
-              title: "text-white",
-              description: "text-zinc-400",
-            },
-          }}
-        />
+    <div>
+      <Toaster
+        richColors
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: "bg-zinc-900 text-white border border-zinc-700",
+            title: "text-white",
+            description: "text-zinc-400",
+          },
+        }}
+      />
 
-        <Layout>{children}</Layout>
-      </body>
-    </html>
+      <Layout>{children}</Layout>
+    </div>
   );
 }

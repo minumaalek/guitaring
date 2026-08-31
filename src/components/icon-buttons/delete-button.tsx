@@ -5,7 +5,6 @@ import { Trash } from "lucide-react";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -23,10 +22,8 @@ interface ActionFormProps {
 export default function DeleteButton({ action }: ActionFormProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <button type="button">
-          <Trash className="stroke-black" />
-        </button>
+      <AlertDialogTrigger>
+        <Trash className="stroke-black" />
       </AlertDialogTrigger>
 
       <AlertDialogContent>
@@ -41,11 +38,9 @@ export default function DeleteButton({ action }: ActionFormProps) {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction asChild>
-            <form action={action}>
-              <button type="submit">Delete</button>
-            </form>
-          </AlertDialogAction>
+          <form action={action}>
+            <button type="submit">Delete</button>
+          </form>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

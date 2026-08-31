@@ -1,13 +1,19 @@
 import { getAllCourses } from "@/db/queries/courses";
-import Link from "next/link";
-Link;
+import CourseCard from "@/components/courses/course-card";
 export default async function CoursesPage() {
   const courses = await getAllCourses();
   return (
-    <div>
-      {courses.map((course) => {
+    <div className="grid grid-cols-4 p-10 place-content-center place-items-center w-full h-full">
+      {courses.map((course, i) => {
         return (
-          <Link href={`/courses/music/${course.slug}`}>{course.title}</Link>
+          <CourseCard
+            key={i}
+            title={course.title}
+            description={course.description}
+            teacher={`${course.teacher.firstName} ${course.teacher.lastName}`}
+            category={course.category.slug}
+            slug={course.slug}
+          />
         );
       })}
     </div>

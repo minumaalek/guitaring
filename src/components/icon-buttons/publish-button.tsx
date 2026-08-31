@@ -5,7 +5,6 @@ import { X, Check } from "lucide-react";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -30,14 +29,12 @@ export default function PublishButton({ published, action }) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <button type="button">
-          {published ? (
-            <X className="stroke-red-600" />
-          ) : (
-            <Check className="stroke-green-600" />
-          )}
-        </button>
+      <AlertDialogTrigger>
+        {published ? (
+          <X className="stroke-red-600" />
+        ) : (
+          <Check className="stroke-green-600" />
+        )}
       </AlertDialogTrigger>
 
       <AlertDialogContent>
@@ -56,13 +53,11 @@ export default function PublishButton({ published, action }) {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction asChild>
-            <form action={formAction}>
-              <button type="submit" disabled={pending}>
-                {pending ? "Updating..." : published ? "Unpublish" : "Publish"}
-              </button>
-            </form>
-          </AlertDialogAction>
+          <form action={formAction}>
+            <button type="submit" disabled={pending}>
+              {pending ? "Updating..." : published ? "Unpublish" : "Publish"}
+            </button>
+          </form>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

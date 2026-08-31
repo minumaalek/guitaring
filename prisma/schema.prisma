@@ -132,10 +132,12 @@ model Course {
   teacherId String
   teacher   User   @relation("TeacherCourses", fields: [teacherId], references: [id])
 
+createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
   enrollments CourseEnrollment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  
 }
 
 model Article {
