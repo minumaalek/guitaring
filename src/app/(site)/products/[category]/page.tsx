@@ -13,6 +13,7 @@ export default async function ProductsCategoryPage({
   const { category } = await params;
   const products = await getProductsByCategory(category);
   const subCategories = await getSubCategories(category);
+  console.log(products);
   return (
     <div>
       <h1>{category}</h1>

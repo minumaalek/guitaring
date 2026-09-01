@@ -1,22 +1,17 @@
-interface CoursesCategoryPageProps {
-  params: Promise<{
-    category: string;
-  }>;
-}
-import { getCoursesByCategory } from "@/db/queries/courses";
-import { getSubCategories } from "@/db/queries/categories";
-import CourseCard from "@/components/courses/course-card";
+import CoursePage from "@/components/courses/course-page";
 import ItemsList from "@/components/modules/items-list";
+import { getCourseBySlug } from "@/db/queries/courses";
+import { getCoursesByCategory } from "@/db/queries/courses";
+import CourseCard from "@/components/courses/course-card";
 
-export default async function CoursesCategoryPage({
-  params,
-}: CoursesCategoryPageProps) {
-  const { category } = await params;
-  const courses = await getCoursesByCategory(category);
-  const subCategories = await getSubCategories(category, null);
+export default async function CourseCategoryPage({ params }) {
+  const { slug } = await params;
+  const course = await getCourseBySlug(slug);
+  const courses = await getCoursesByCategory(slug);
+  if (course) return <CoursePage slug={slug} />;
   return (
     <div>
-      <ItemsList empty={!courses.length && true} subCategories={subCategories}>
+      <ItemsList empty={!courses.length && true} subCategories={[]}>
         {courses.map((course, i) => {
           return (
             <CourseCard

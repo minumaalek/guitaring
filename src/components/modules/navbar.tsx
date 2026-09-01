@@ -9,7 +9,6 @@ export default async function Navbar() {
   const coursesCategories = await getNavbarCategories("courses");
   const productsCategories = await getNavbarCategories("products");
   const session = await getSession();
-  console.log(coursesCategories);
   return (
     <div className="flex justify-between bg-blue-500/70 backdrop-blur-sm p-2 w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-black/10">
       <div className="flex ">

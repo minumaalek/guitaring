@@ -37,18 +37,44 @@ export async function getCategoryById(id: number) {
   });
 }
 
-export async function getSubCategories(categoryName: string) {
-  const category = await db.category.findFirst({
+export async function getSubCategories(
+  categoryName: string | null,
+  section: string | null,
+) {
+  if (section) {
+    return await db.category.findMany({
+      where: {
+        section,
+        parentId: null,
+      },
+    });
+  }
+
+  if (categoryName) {
+    const category = await db.category.findFirst({
+      where: {
+        slug: categoryName,
+      },
+    });
+
+    if (!category) {
+      return [];
+    }
+
+    return await db.category.findMany({
+      where: {
+        parentId: category.id,
+      },
+    });
+  }
+
+  return [];
+}
+
+export async function getSubCategory(categoryName: string) {
+  return await db.category.findFirst({
     where: {
       slug: categoryName,
-    },
-  });
-  if (!category) {
-    return [];
-  }
-  return db.category.findMany({
-    where: {
-      parentId: category.id,
     },
   });
 }
