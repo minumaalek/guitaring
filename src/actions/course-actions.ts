@@ -41,6 +41,44 @@ export async function enrollInCourse(courseId: number) {
   };
 }
 
+export async function removeCourseFromCheckout(courseId: number) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const enrollment = await db.courseEnrollment.findUnique({
+    where: {
+      userId_courseId: {
+        userId: session.user.id,
+        courseId,
+      },
+    },
+  });
+
+  if (!enrollment) {
+    throw new Error("Course is not in checkout");
+  }
+
+  if (enrollment.status === "COMPLETED") {
+    throw new Error("Course has already been purchased");
+  }
+
+  await db.courseEnrollment.delete({
+    where: {
+      userId_courseId: {
+        userId: session.user.id,
+        courseId,
+      },
+    },
+  });
+
+  return {
+    success: true,
+  };
+}
+
 export async function addCourseToCheckout(courseId: number) {
   const session = await auth();
 
@@ -56,6 +94,19 @@ export async function addCourseToCheckout(courseId: number) {
 
   if (!course) {
     throw new Error("Course not found");
+  }
+
+  const enrollment = await db.courseEnrollment.findUnique({
+    where: {
+      userId_courseId: {
+        userId: session.user.id,
+        courseId,
+      },
+    },
+  });
+
+  if (enrollment?.status === "COMPLETED") {
+    throw new Error("Course already purchased");
   }
 
   await db.courseEnrollment.upsert({
@@ -120,16 +171,36 @@ export async function createCourse(formData: FormData) {
       };
     }
 
-    const existingCourse = await db.course.findUnique({
+    const category = await db.category.findUnique({
       where: {
-        slug,
+        id: categoryId,
+      },
+      include: {
+        parent: true,
+      },
+    });
+
+    if (!category) {
+      return {
+        success: false,
+        message: "Category not found.",
+      };
+    }
+
+    const route = category.parent
+      ? `/courses/${category.parent.slug}/${category.slug}/${slug}`
+      : `/courses/${category.slug}/${slug}`;
+
+    const existingCourse = await db.course.findFirst({
+      where: {
+        OR: [{ slug }, { route }],
       },
     });
 
     if (existingCourse) {
       return {
         success: false,
-        message: "A course with this slug already exists.",
+        message: "A course with this slug or route already exists.",
       };
     }
 
@@ -138,6 +209,7 @@ export async function createCourse(formData: FormData) {
         title,
         description,
         slug,
+        route,
         content,
         originalPrice,
         newPrice,
@@ -187,33 +259,89 @@ export async function deleteCourse(courseId: number) {
 }
 
 export async function editCourse(courseId: number, formData: FormData) {
-  const data = {
-    title: formData.get("title"),
-    description: formData.get("description"),
-    slug: formData.get("slug"),
-    content: formData.get("content"),
-  };
+  try {
+    const data = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      slug: formData.get("slug"),
+      content: formData.get("content"),
+    };
 
-  const result = courseSchema.safeParse(data);
+    const result = courseSchema.safeParse(data);
 
-  if (!result.success) {
+    if (!result.success) {
+      return {
+        success: false,
+        errors: result.error.flatten().fieldErrors,
+      };
+    }
+
+    const course = await db.course.findUnique({
+      where: {
+        id: courseId,
+      },
+      include: {
+        category: {
+          include: {
+            parent: true,
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      return {
+        success: false,
+        message: "Course not found.",
+      };
+    }
+
+    const { slug } = result.data;
+
+    const route = course.category.parent
+      ? `/courses/${course.category.parent.slug}/${course.category.slug}/${slug}`
+      : `/courses/${course.category.slug}/${slug}`;
+
+    const existingCourse = await db.course.findFirst({
+      where: {
+        OR: [{ slug }, { route }],
+        NOT: {
+          id: courseId,
+        },
+      },
+    });
+
+    if (existingCourse) {
+      return {
+        success: false,
+        message: "A course with this slug or route already exists.",
+      };
+    }
+
+    const updatedCourse = await db.course.update({
+      where: {
+        id: courseId,
+      },
+      data: {
+        ...result.data,
+        route,
+      },
+    });
+
+    revalidatePath("/admin/courses");
+
+    return {
+      success: true,
+      course: updatedCourse,
+    };
+  } catch (error) {
+    console.error("EDIT COURSE ERROR:", error);
+
     return {
       success: false,
-      errors: result.error.flatten().fieldErrors,
+      message: "Something went wrong while editing the course.",
     };
   }
-
-  const course = await db.course.update({
-    where: {
-      id: courseId,
-    },
-    data: result.data,
-  });
-
-  return {
-    success: true,
-    course,
-  };
 }
 
 export async function publishCourse(

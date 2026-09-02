@@ -71,16 +71,36 @@ export async function createProduct(formData: FormData) {
       };
     }
 
-    const existingProduct = await db.product.findUnique({
+    const category = await db.category.findUnique({
       where: {
-        slug,
+        id: categoryId,
+      },
+      include: {
+        parent: true,
+      },
+    });
+
+    if (!category) {
+      return {
+        success: false,
+        message: "Category not found.",
+      };
+    }
+
+    const route = category.parent
+      ? `/products/${category.parent.slug}/${category.slug}/${slug}`
+      : `/products/${category.slug}/${slug}`;
+
+    const existingProduct = await db.product.findFirst({
+      where: {
+        OR: [{ slug }, { route }],
       },
     });
 
     if (existingProduct) {
       return {
         success: false,
-        message: "A product with this slug already exists.",
+        message: "A product with this slug or route already exists.",
       };
     }
 
@@ -89,6 +109,7 @@ export async function createProduct(formData: FormData) {
         title,
         description,
         slug,
+        route,
         content,
         originalPrice,
         newPrice,
@@ -113,7 +134,6 @@ export async function createProduct(formData: FormData) {
     };
   }
 }
-
 export async function deleteProduct(productId: number) {
   try {
     await db.product.delete({
@@ -138,31 +158,87 @@ export async function deleteProduct(productId: number) {
 }
 
 export async function editProduct(productId: number, formData: FormData) {
-  const data = {
-    title: formData.get("title"),
-    description: formData.get("description"),
-    slug: formData.get("slug"),
-    content: formData.get("content"),
-  };
+  try {
+    const data = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      slug: formData.get("slug"),
+      content: formData.get("content"),
+    };
 
-  const result = productSchema.safeParse(data);
+    const result = productSchema.safeParse(data);
 
-  if (!result.success) {
+    if (!result.success) {
+      return {
+        success: false,
+        errors: result.error.flatten().fieldErrors,
+      };
+    }
+
+    const product = await db.product.findUnique({
+      where: {
+        id: productId,
+      },
+      include: {
+        category: {
+          include: {
+            parent: true,
+          },
+        },
+      },
+    });
+
+    if (!product) {
+      return {
+        success: false,
+        message: "Product not found.",
+      };
+    }
+
+    const { slug } = result.data;
+
+    const route = product.category.parent
+      ? `/products/${product.category.parent.slug}/${product.category.slug}/${slug}`
+      : `/products/${product.category.slug}/${slug}`;
+
+    const existingProduct = await db.product.findFirst({
+      where: {
+        OR: [{ slug }, { route }],
+        NOT: {
+          id: productId,
+        },
+      },
+    });
+
+    if (existingProduct) {
+      return {
+        success: false,
+        message: "A product with this slug or route already exists.",
+      };
+    }
+
+    const updatedProduct = await db.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        ...result.data,
+        route,
+      },
+    });
+
+    revalidatePath("/admin/products");
+
+    return {
+      success: true,
+      product: updatedProduct,
+    };
+  } catch (error) {
+    console.error("EDIT PRODUCT ERROR:", error);
+
     return {
       success: false,
-      errors: result.error.flatten().fieldErrors,
+      message: "Something went wrong while editing the product.",
     };
   }
-
-  const product = await db.product.update({
-    where: {
-      id: productId,
-    },
-    data: result.data,
-  });
-
-  return {
-    success: true,
-    product,
-  };
 }

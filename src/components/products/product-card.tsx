@@ -1,11 +1,15 @@
+"use client";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { getCategoryById } from "@/db/queries/categories";
 import Image from "next/image";
-export default async function ProductCard({ product }) {
-  const { title, originalPrice, newPrice, slug, id, image } = product;
-  const category = await getCategoryById(id);
+export default function ProductCard({ product }) {
+  const { title, originalPrice, newPrice, slug, id, image, route } = product;
+  // const category = await getCategoryById(id);
+  const path = usePathname();
+  // const href = `${usePathname}`
   return (
-    <Link href={`products/${category?.slug}/${slug}`}>
+    <Link href={route ? route : ""}>
       <div className="card size-56 flex items-center justify-start card-gradient bg-gray-500 group">
         {/* <div className="size-full card-gradient"></div> */}
         <div className="size-44 group-hover:size-48 relative">

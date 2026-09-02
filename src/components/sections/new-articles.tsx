@@ -1,6 +1,7 @@
 import { getAllArticles } from "@/db/queries/articles";
 import ArticleCard from "../blog/article-card";
 import Link from "next/link";
+import SectionSlider from "../sliders/section-slider";
 export default async function NewArticlesSection() {
   const articles = await getAllArticles();
   return (
@@ -11,10 +12,12 @@ export default async function NewArticlesSection() {
           More...
         </Link>
       </div>
-      <div className="flex gap-10">
-        {articles.map((article) => {
-          return <ArticleCard key={article.id} article={article} />;
-        })}
+      <div>
+        <SectionSlider>
+          {articles.map((article) => {
+            return <ArticleCard key={article.id} article={article} />;
+          })}
+        </SectionSlider>
       </div>
     </div>
   );
