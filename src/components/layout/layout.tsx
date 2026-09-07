@@ -8,7 +8,7 @@ export default function Layout({ children }) {
     <>
       <Navbar />
 
-      <main className="p-3">
+      <main className="p-2">
         {children}
         {/* <div className=" fixed inset-0 h-screen">
 

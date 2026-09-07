@@ -18,16 +18,7 @@ export default async function CoursesCategoryPage({
     <div>
       <ItemsList empty={!courses.length && true} subCategories={subCategories}>
         {courses.map((course, i) => {
-          return (
-            <CourseCard
-              key={i}
-              title={course.title}
-              description={course.description}
-              teacher={`${course.teacher.firstName} ${course.teacher.lastName}`}
-              category={course.category.slug}
-              slug={course.slug}
-            />
-          );
+          return <CourseCard key={i} course={course} />;
         })}
       </ItemsList>
     </div>

@@ -22,7 +22,7 @@ export default function SectionSlider({ children }) {
           slidesPerView: 3,
         },
         1280: {
-          slidesPerView: 4,
+          slidesPerView: 5,
         },
       }}
     >

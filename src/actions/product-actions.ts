@@ -51,6 +51,47 @@ export async function addProductToCart(productId: number) {
   };
 }
 
+export async function removeProductFromCart(productId: number) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const cart = await db.cart.findUnique({
+    where: {
+      userId: session.user.id,
+    },
+  });
+
+  if (!cart) {
+    throw new Error("Cart not found");
+  }
+
+  const cartItem = await db.cartItem.findUnique({
+    where: {
+      cartId_productId: {
+        cartId: cart.id,
+        productId,
+      },
+    },
+  });
+
+  if (!cartItem) {
+    throw new Error("Product is not in cart");
+  }
+
+  await db.cartItem.delete({
+    where: {
+      id: cartItem.id,
+    },
+  });
+
+  return {
+    success: true,
+  };
+}
+
 export async function createProduct(formData: FormData) {
   try {
     const admin = await requireAdmin();

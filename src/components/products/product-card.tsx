@@ -9,10 +9,13 @@ export default function ProductCard({ product }) {
   const path = usePathname();
   // const href = `${usePathname}`
   return (
-    <Link href={route ? route : ""}>
-      <div className="card size-56 flex items-center justify-start card-gradient bg-gray-500 group">
+    <Link
+      href={route ? route : ""}
+      className="inline-block w-32 md:w-56 md:h-64"
+    >
+      <div className="relative card w-36 h-48 md:w-56 md:h-64 flex items-center justify-start card-gradient bg-gray-500 group">
         {/* <div className="size-full card-gradient"></div> */}
-        <div className="size-44 group-hover:size-48 relative">
+        <div className="size-32 md:size-44 group-hover:size-48 relative">
           <Image
             alt="guitar"
             src={image}
@@ -22,11 +25,8 @@ export default function ProductCard({ product }) {
         </div>
         <div className="absolute size-full bg-blue-400/50 group-hover:bg-blue-400/10 top-0 right-0">
           <div className="size-full flex flex-col items-center justify-end">
-            <div className="w-48">
-              <h3 className="text-lg truncate">
-                {title.split(" ").slice(0, 2).join(" ")}
-                {title.split(" ").length > 2 && "..."}
-              </h3>
+            <div className="w-28 md:w-48">
+              <h3 className="text-base truncate">{title}</h3>
             </div>
             <div className="flex-row-center">
               <p className="old-price">{originalPrice}</p>

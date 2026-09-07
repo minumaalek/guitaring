@@ -12,16 +12,7 @@ export default async function UserCourses() {
       <h2>user courses here</h2>
 
       {userCourses.map((course, i) => {
-        return (
-          <CourseCard
-            key={i}
-            title={course.title}
-            description={course.description}
-            teacher={`${course.teacher.firstName} ${course.teacher.lastName}`}
-            category={course.category.slug}
-            slug={course.slug}
-          />
-        );
+        return <CourseCard key={i} course={course} />;
       })}
     </div>
   );
