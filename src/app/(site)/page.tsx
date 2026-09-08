@@ -6,7 +6,7 @@ export default function Home() {
       <header>
         <HeroHeader />
       </header>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 p-1 md:px-20">
         <HomeSections />
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function CoursesSection({ courses, title }) {
           <ArrowRight className="size-5" />
         </button>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-5 place-content-center">
+      <div className="grid grid-cols-2 lg:grid-cols-4 place-content-center">
         {Array.isArray(courses) &&
           courses.map((course) => {
             return <CourseCard course={course} />;

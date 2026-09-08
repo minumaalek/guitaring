@@ -1,19 +1,19 @@
 import Logo from "../common/logo";
 import NavbarDropdown from "../dropdowns/navbar-dropdown";
-import { getNavbarCategories } from "@/db/queries/categories";
 import Link from "next/link";
 import { UserRound } from "lucide-react";
 import { getSession } from "@/lib/check-auth";
 
-export default async function Navbar() {
-  const coursesCategories = await getNavbarCategories("courses");
-  const productsCategories = await getNavbarCategories("products");
+export default async function Navbar({
+  coursesCategories,
+  productsCategories,
+}) {
   const session = await getSession();
   return (
-    <div className="flex justify-between bg-blue-500/70 backdrop-blur-sm p-2 w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-black/10">
-      <div className="flex ">
+    <div className="flex justify-between w-full">
+      <div className="flex items-center justify-start gap-10">
         <Logo />
-        <div className="flex gap-10 justify-center items-center">
+        <div className="hidden md:flex gap-10 justify-center items-center mt-1">
           <NavbarDropdown category={coursesCategories} title="Courses" />
           <NavbarDropdown category={productsCategories} title="Products" />
           <Link href={"/blog"}>Blog</Link>

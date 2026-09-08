@@ -5,7 +5,7 @@ import Slider from "../sliders/hero-slider";
 export default function HeroHeader() {
   return (
     <div className="relative">
-      <div className=" absolute z-30 w-full  flex items-start justify-center">
+      <div className=" absolute z-30 w-full  flex items-start justify-center p-4">
         <h1>
           <BlurText
             text="Guitar your dreams"
@@ -17,7 +17,7 @@ export default function HeroHeader() {
           />
         </h1>
       </div>
-      <div className="rounded-2xl overflow-hidden">
+      <div className=" overflow-hidden">
         <Slider />
       </div>
     </div>

@@ -135,17 +135,24 @@ html {
     @apply flex flex-col items-center justify-center;
   }
   .card {
-    @apply relative flex flex-col border border-blue-400/50 shadow-md shadow-black rounded-3xl p-2 overflow-hidden;
+    @apply relative flex flex-col border border-blue-400/50 shadow-md shadow-black/50 rounded-3xl p-2 overflow-hidden;
   }
-  .card h3 {
-    @apply text-white/70 group-hover:text-white text-center;
-  }
+
   .card .old-price,
   .card .price {
     /* @apply invisible group-hover:visible; */
   }
   .courses-swiper .swiper-wrapper {
     gap: clamp(50px, 2vw, 20px);
+  }
+  .categories-list {
+    @apply text-white w-full;
+  }
+  .categories-list p {
+    @apply text-2xl font-bold;
+  }
+  .categories-list li {
+    @apply text-xl;
   }
 }
 

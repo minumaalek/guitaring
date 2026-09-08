@@ -5,7 +5,7 @@ export default function CourseCard({ course }) {
   const { title, description, teacher, category, slug } = course;
   return (
     <Link href={`/courses/${category.slug}/${slug}`}>
-      <div className="w-44 h-64 md:size-72 border-2 border-blue-400 rounded-2xl p-1 flex flex-col text-black">
+      <div className="card w-44 h-64 md:size-72 border-2 bg-blue-300/20 rounded-2xl p-1 flex flex-col text-black">
         <div className="rounded-t-2xl bg-blue-500 w-full h-1/2"></div>
         <div className="flex flex-col justify-between gap-1 h-1/2">
           <div className="h-1/3">

@@ -22,6 +22,8 @@ export default function Slider() {
         delay: 4000,
         disableOnInteraction: false,
       }}
+      onMouseEnter={(swiper) => swiper.autoPlay.stop()}
+      onMouseLeave={(swiper) => swiper.autoplay.resume()}
 
       // pagination={{ clickable: true }}
       // scrollbar={{ draggable: true }}

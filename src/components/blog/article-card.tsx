@@ -12,7 +12,9 @@ export default function ArticleCard({ article }) {
           className="object-cover"
         />
         <div className="w-full h-full absolute bg-blue-300/50 hover:bg-blue-300/20 top-0 right-0 flex items-center justify-center p-10 group">
-          <h3>{title}</h3>
+          <h3 className="text-white/70 group-hover:text-white text-center">
+            {title}
+          </h3>
           {/* <p>{createdAt.toLocaleDateString()}</p> */}
           {/* <Link className="bg-blue-500 rounded-xl" href={`blog/${slug}`}>
           Read
