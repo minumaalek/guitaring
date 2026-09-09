@@ -2,8 +2,10 @@ import { addProductToCart } from "@/actions/product-actions";
 import { getProductBySlug } from "@/db/queries/products";
 import { getProductsByCategory } from "@/db/queries/products";
 import ProductPage from "@/components/products/product-page";
-import ItemsList from "@/components/modules/items-list";
-import ProductCard from "@/components/products/product-card";
+import ItemsContainer from "@/components/modules/items-container";
+import ProductPreviewCard from "@/components/products/product-preview-card";
+import ProductMainCard from "@/components/products/prodcut-main-card";
+import ProductsContainer from "@/components/products/products-container";
 interface ProductPageProps {
   params: Promise<{
     slug: string;
@@ -22,11 +24,11 @@ export default async function ProductCategoryPage({
     );
   return (
     <div>
-      <ItemsList empty={!products.length && true} subCategories={[]}>
+      <ProductsContainer empty={!products.length && true} subCategories={[]}>
         {products.map((product, i) => {
-          return <ProductCard product={product} />;
+          return <ProductMainCard product={product} />;
         })}
-      </ItemsList>
+      </ProductsContainer>
     </div>
   );
 }

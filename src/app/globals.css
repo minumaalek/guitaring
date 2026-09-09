@@ -117,10 +117,10 @@ html {
     @apply cursor-pointer text-gray-300 hover:text-white;
   } */
   .price {
-    @apply text-white text-base font-semibold;
+    @apply text-black text-base font-semibold;
   }
   .old-price {
-    @apply line-through text-gray-200 text-sm;
+    @apply line-through text-gray-700 text-sm;
   }
 
   .price::before,
@@ -135,7 +135,7 @@ html {
     @apply flex flex-col items-center justify-center;
   }
   .card {
-    @apply relative flex flex-col border border-blue-400/50 shadow-md shadow-black/50 rounded-3xl p-2 overflow-hidden;
+    @apply relative flex border border-blue-400/50 shadow-md shadow-black/50 rounded-3xl p-2 overflow-hidden;
   }
 
   .card .old-price,

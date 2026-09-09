@@ -5,12 +5,12 @@ export default function CourseCard({ course }) {
   const { title, description, teacher, category, slug } = course;
   return (
     <Link href={`/courses/${category.slug}/${slug}`}>
-      <div className="card w-44 h-64 md:size-72 border-2 bg-blue-300/20 rounded-2xl p-1 flex flex-col text-black">
+      <div className="card w-44 h-72 md:size-72 border-2 bg-blue-300/20 rounded-2xl p-1 flex flex-col text-black">
         <div className="rounded-t-2xl bg-blue-500 w-full h-1/2"></div>
         <div className="flex flex-col justify-between gap-1 h-1/2">
-          <div className="h-1/3">
-            <h3>{title}</h3>
-            <span>{description}</span>
+          <div className="h-1/3 truncate">
+            <h3 className="text-lg">{title}</h3>
+            <span className="text-base">{description}</span>
           </div>
           <div className="flex flex-col-center md:flex-row items-center justify-between">
             <i>{teacher.firstName + " " + teacher.lastName}</i>

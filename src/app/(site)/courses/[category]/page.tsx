@@ -6,7 +6,7 @@ interface CoursesCategoryPageProps {
 import { getCoursesByCategory } from "@/db/queries/courses";
 import { getSubCategories } from "@/db/queries/categories";
 import CourseCard from "@/components/courses/course-card";
-import ItemsList from "@/components/modules/items-list";
+import ItemsContainer from "@/components/modules/items-container";
 
 export default async function CoursesCategoryPage({
   params,
@@ -16,11 +16,14 @@ export default async function CoursesCategoryPage({
   const subCategories = await getSubCategories(category, null);
   return (
     <div>
-      <ItemsList empty={!courses.length && true} subCategories={subCategories}>
+      <ItemsContainer
+        empty={!courses.length && true}
+        subCategories={subCategories}
+      >
         {courses.map((course, i) => {
           return <CourseCard key={i} course={course} />;
         })}
-      </ItemsList>
+      </ItemsContainer>
     </div>
   );
 }

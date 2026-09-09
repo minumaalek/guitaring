@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function ItemsList({ empty, children, subCategories }) {
+export default function ItemsContainer({ empty, children, subCategories }) {
   const pathname = usePathname();
   return (
     <div className="w-full h-full flex flex-col justify-between items-center">

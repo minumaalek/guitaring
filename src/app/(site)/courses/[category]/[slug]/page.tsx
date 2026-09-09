@@ -1,5 +1,5 @@
 import CoursePage from "@/components/courses/course-page";
-import ItemsList from "@/components/modules/items-list";
+import ItemsContainer from "@/components/modules/items-container";
 import { getCourseBySlug } from "@/db/queries/courses";
 import { getCoursesByCategory } from "@/db/queries/courses";
 import CourseCard from "@/components/courses/course-card";
@@ -11,11 +11,11 @@ export default async function CourseCategoryPage({ params }) {
   if (course) return <CoursePage slug={slug} />;
   return (
     <div>
-      <ItemsList empty={!courses.length && true} subCategories={[]}>
+      <ItemsContainer empty={!courses.length && true} subCategories={[]}>
         {courses.map((course, i) => {
           return <CourseCard key={i} course={course} />;
         })}
-      </ItemsList>
+      </ItemsContainer>
     </div>
   );
 }

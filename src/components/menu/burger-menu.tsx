@@ -34,7 +34,7 @@ export default function BurgerMenu({ coursesCategories, productsCategories }) {
         ))}
       </div>
       <div
-        className={`z-50 w-screen h-screen inset-0 fixed bg-black/70 ${open ? "opacity-100 visible" : "opacity-0 invisible"}  `}
+        className={`z-50 w-screen h-screen inset-0 fixed bg-black/70 backdrop-blur-lg ${open ? "opacity-100 visible" : "opacity-0 invisible"}  `}
         onClick={closeHandler}
       >
         <div
@@ -47,7 +47,7 @@ export default function BurgerMenu({ coursesCategories, productsCategories }) {
               <ul className="flex flex-col gap-1">
                 {productsCategories.map((category) => {
                   return (
-                    <li>
+                    <li key={category.id}>
                       <Link
                         href={`/products/${category.slug}`}
                         onClick={closeHandler}
@@ -67,7 +67,7 @@ export default function BurgerMenu({ coursesCategories, productsCategories }) {
               <ul className="flex flex-col gap-1">
                 {coursesCategories.map((category) => {
                   return (
-                    <li>
+                    <li key={category.id}>
                       <Link
                         href={`/courses/${category.slug}`}
                         onClick={closeHandler}
@@ -82,9 +82,9 @@ export default function BurgerMenu({ coursesCategories, productsCategories }) {
                 })}
               </ul>
             </div>
-            <div className="flex flex-col gap-2 w-full h-full mt-5">
+            <div className="flex flex-col gap-2 w-full h-full mt-5 ">
               <Link href={`/blog`} onClick={closeHandler} className="w-full">
-                <div className="flex items-center justify-between w-full bg-blue-400/20 p-1 rounded-md">
+                <div className="flex items-center justify-between w-full bg-blue-400/20  p-1 rounded-md">
                   <p>Blog</p>
                   <ChevronRight />
                 </div>

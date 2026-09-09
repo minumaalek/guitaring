@@ -3,10 +3,12 @@ interface ProductsCategoryPageProps {
     category: string;
   }>;
 }
-import ItemsList from "@/components/modules/items-list";
-import ProductCard from "@/components/products/product-card";
+import ItemsContainer from "@/components/modules/items-container";
+import ProductPreviewCard from "@/components/products/product-preview-card";
 import { getProductsByCategory } from "@/db/queries/products";
 import { getSubCategories } from "@/db/queries/categories";
+import ProductsContainer from "@/components/products/products-container";
+import ProductMainCard from "@/components/products/prodcut-main-card";
 export default async function ProductsCategoryPage({
   params,
 }: ProductsCategoryPageProps) {
@@ -17,11 +19,14 @@ export default async function ProductsCategoryPage({
   return (
     <div>
       <h1>{category}</h1>
-      <ItemsList empty={!products.length && true} subCategories={subCategories}>
+      <ProductsContainer
+        empty={!products.length && true}
+        subCategories={subCategories}
+      >
         {products.map((product) => {
-          return <ProductCard product={product} />;
+          return <ProductMainCard product={product} />;
         })}
-      </ItemsList>
+      </ProductsContainer>
     </div>
   );
 }

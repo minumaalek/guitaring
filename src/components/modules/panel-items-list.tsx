@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import PublishButton from "../icon-buttons/publish-button";
 
-export default function PanelItemsList({ title, items, deleteIt, publishIt }) {
+export default function PanelItemsContainer({
+  title,
+  items,
+  deleteIt,
+  publishIt,
+}) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex justify-between w-full">

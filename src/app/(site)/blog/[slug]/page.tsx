@@ -86,20 +86,24 @@ Start with your budget, think about the music you enjoy, compare a few models, a
 
   console.log(headings);
   return (
-    <article className="grid grid-cols-[2fr_1fr]">
+    <article className="flex flex-col md:grid md:grid-cols-[2fr_1fr]">
       <div>
         <div className="flex flex-col mb-10 p-3 gap-3">
-          <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative md:h-96 h-60 w-full rounded-2xl overflow-hidden shadow-2xl">
             {coverImage && <Image alt="cover" src={coverImage} fill />}
           </div>
+
+          <div className="md:hidden">
+            <TableOfContents headings={headings} />
+          </div>
+
           <h1>{article.title}</h1>
         </div>
 
-        {/* {article.excerpt && <p>{article.excerpt}</p>} */}
-
         <ArticleContent content={content} />
       </div>
-      <div className="sticky flex items-start justify-center">
+
+      <div className="hidden md:flex md:sticky md:top-6 items-start justify-center h-fit">
         <TableOfContents headings={headings} />
       </div>
     </article>

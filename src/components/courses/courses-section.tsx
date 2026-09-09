@@ -7,6 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import CourseCard from "./course-card";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import MoreButton from "../buttons/more-button";
 
 export default function CoursesSection({ courses, title }) {
   return (
@@ -14,10 +16,7 @@ export default function CoursesSection({ courses, title }) {
       <div className="flex items-center justify-between gap-2">
         <h2 className="whitespace-nowrap">{title}</h2>
         <hr className="w-full border-blue-400 rounded-full" />
-        <button className="main-gradient flex items-center gap-2">
-          <p className="whitespace-nowrap">More courses</p>
-          <ArrowRight className="size-5" />
-        </button>
+        <MoreButton slug="courses" text="More courses" />
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 place-content-center">
         {Array.isArray(courses) &&

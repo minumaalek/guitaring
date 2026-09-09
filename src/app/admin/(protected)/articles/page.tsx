@@ -4,7 +4,7 @@ import { deleteArticle } from "@/actions/article-actions";
 import DeleteButton from "@/components/admin/delete-article-button";
 
 import Link from "next/link";
-import PanelItemsList from "@/components/modules/panel-items-list";
+import PanelItemsContainer from "@/components/modules/panel-items-list";
 
 export default async function ArticlesPanel() {
   const articles = await getAllArticles();
@@ -13,7 +13,7 @@ export default async function ArticlesPanel() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col items-center justify-between">
         <div className="flex flex-col w-full justify-between">
-          <PanelItemsList
+          <PanelItemsContainer
             title={"Articles"}
             items={articles}
             deleteIt={deleteArticle}

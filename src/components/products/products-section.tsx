@@ -5,8 +5,10 @@ import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import ProductCard from "./product-card";
+import ProductPreviewCard from "./product-preview-card";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import MoreButton from "../buttons/more-button";
 
 export default function ProductsSection({ products, title }) {
   return (
@@ -14,10 +16,7 @@ export default function ProductsSection({ products, title }) {
       <div className="flex items-center justify-between gap-2">
         <h2 className="whitespace-nowrap">{title}</h2>
         <hr className="w-full border-blue-400 rounded-full" />
-        <button className="main-gradient flex items-center gap-2">
-          <p className="whitespace-nowrap">More products</p>
-          <ArrowRight className="size-5" />
-        </button>
+        <MoreButton slug="products" text="More products" />
       </div>
       <Swiper
         modules={[Navigation]}
@@ -50,7 +49,7 @@ export default function ProductsSection({ products, title }) {
                 key={product.id}
                 className="!w-[120px] sm:!w-[200px] lg:!w-[220px]"
               >
-                <ProductCard product={product} />
+                <ProductPreviewCard product={product} />
               </SwiperSlide>
             );
           })}

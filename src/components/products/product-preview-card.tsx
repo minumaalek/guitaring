@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { getCategoryById } from "@/db/queries/categories";
 import Image from "next/image";
-export default function ProductCard({ product }) {
+export default function ProductPreviewCard({ product }) {
   const { title, originalPrice, newPrice, slug, id, image, route } = product;
   // const category = await getCategoryById(id);
   const path = usePathname();

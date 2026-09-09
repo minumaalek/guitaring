@@ -8,17 +8,17 @@ import "swiper/css/navigation";
 import { ArrowRight } from "lucide-react";
 
 import ArticleCard from "./article-card";
+import Link from "next/link";
+import MoreButton from "../buttons/more-button";
 
 export default function ArticlesSection({ articles, title }) {
   return (
     <div className="min-w-0 w-full flex flex-col bg-blue-500/5 gap-2 rounded-4xl">
       <div className="flex items-center justify-between gap-2">
         <h2 className="whitespace-nowrap">{title}</h2>
+
         <hr className="w-full border-blue-400 rounded-full" />
-        <button className="main-gradient flex items-center gap-2">
-          <p className="whitespace-nowrap">More Articles</p>
-          <ArrowRight className="size-5" />
-        </button>
+        <MoreButton slug="blog" text="More articles" />
       </div>
       <Swiper
         modules={[Navigation]}

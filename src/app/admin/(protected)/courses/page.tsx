@@ -1,5 +1,5 @@
 import { getAllCourses } from "@/db/queries/courses";
-import PanelItemsList from "@/components/modules/panel-items-list";
+import PanelItemsContainer from "@/components/modules/panel-items-list";
 import { deleteCourse } from "@/actions/course-actions";
 import { publishCourse } from "@/actions/course-actions";
 export default async function CoursesPage() {
@@ -7,7 +7,7 @@ export default async function CoursesPage() {
 
   return (
     <div>
-      <PanelItemsList
+      <PanelItemsContainer
         title="Courses"
         items={courses}
         deleteIt={deleteCourse}
