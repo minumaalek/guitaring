@@ -13,8 +13,10 @@ export default function ProductPreviewCard({ product }) {
       href={route ? route : ""}
       className="inline-block w-32 md:w-56 md:h-64"
     >
-      <div className="relative card w-36 h-48 md:w-56 md:h-64 flex items-center justify-start card-gradient bg-gray-500 group">
+      <div className="relative card w-36 h-48 md:w-56 md:h-64 flex-col-center card-gradient bg-gray-500 group">
         {/* <div className="size-full card-gradient"></div> */}
+        <h3 className="text-base truncate text-center">{title}</h3>
+
         <div className="size-32 md:size-44 group-hover:size-48 relative">
           <Image
             alt="guitar"
@@ -25,12 +27,13 @@ export default function ProductPreviewCard({ product }) {
         </div>
         <div className="absolute size-full bg-blue-400/50 group-hover:bg-blue-400/10 top-0 right-0">
           <div className="size-full flex flex-col items-center justify-end">
-            <div className="w-28 md:w-48">
-              <h3 className="text-base truncate">{title}</h3>
-            </div>
-            <div className="flex-row-center">
-              <p className="old-price">{originalPrice}</p>
-              <p className="price">{newPrice}</p>
+            <div className="w-28 md:w-48"></div>
+            <div className="flex justify-between w-full px-2 py-1">
+              <div>
+                <span className="old-price">{originalPrice}</span>
+                <span className="price">{newPrice}</span>
+              </div>
+              <span className="bg-red-500 rounded text-sm h-5">50%</span>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { getProductsByCategory } from "@/db/queries/products";
 import ProductPage from "@/components/products/product-page";
 import ItemsContainer from "@/components/modules/items-container";
 import ProductPreviewCard from "@/components/products/product-preview-card";
-import ProductMainCard from "@/components/products/prodcut-main-card";
+import ProductMainCard from "@/components/products/product-main-card";
 import ProductsContainer from "@/components/products/products-container";
 interface ProductPageProps {
   params: Promise<{

@@ -117,10 +117,10 @@ html {
     @apply cursor-pointer text-gray-300 hover:text-white;
   } */
   .price {
-    @apply text-black text-base font-semibold;
+    @apply text-base font-semibold;
   }
   .old-price {
-    @apply line-through text-gray-700 text-sm;
+    @apply line-through text-sm;
   }
 
   .price::before,

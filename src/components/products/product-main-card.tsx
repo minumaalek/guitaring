@@ -12,7 +12,7 @@ export default function ProductMainCard({ product }) {
   } = product;
 
   return (
-    <div className="flex md:flex-col md:justify-center md:items-center w-full card gap-2 h-28 md:w-72 md:h-80">
+    <div className=" flex md:flex-col md:justify-center md:items-center w-full card gap-2 h-28 md:w-72 md:h-80">
       <div className=" size-24 md:size-64 rounded-2xl relative">
         <Image
           alt="guitar"

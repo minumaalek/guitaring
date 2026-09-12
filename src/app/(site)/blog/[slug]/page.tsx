@@ -93,11 +93,10 @@ Start with your budget, think about the music you enjoy, compare a few models, a
             {coverImage && <Image alt="cover" src={coverImage} fill />}
           </div>
 
+          <h1>{article.title}</h1>
           <div className="md:hidden">
             <TableOfContents headings={headings} />
           </div>
-
-          <h1>{article.title}</h1>
         </div>
 
         <ArticleContent content={content} />
