@@ -4,7 +4,7 @@ export default function ArticleCard({ article }) {
   const { title, slug, createdAt, coverImage } = article;
   return (
     <Link href={`blog/${slug}`}>
-      <div className="card w-64 h-32 md:w-80 md:h-36">
+      <div className="card w-full h-full">
         <Image
           alt="guitar"
           src={coverImage ? coverImage : "/images/hero.webp"}

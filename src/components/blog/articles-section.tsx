@@ -33,7 +33,9 @@ export default function ArticlesSection({ articles, title }) {
                 key={article.id}
                 className="!w-[220px] sm:!w-[200px] lg:!w-[280px]"
               >
-                <ArticleCard article={article} />
+                <div className="w-64 h-32 md:w-80 md:h-36">
+                  <ArticleCard article={article} />
+                </div>
               </SwiperSlide>
             );
           })}
