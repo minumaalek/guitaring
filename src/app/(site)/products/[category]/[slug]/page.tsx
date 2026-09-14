@@ -6,14 +6,12 @@ import ItemsContainer from "@/components/modules/items-container";
 import ProductPreviewCard from "@/components/products/product-preview-card";
 import ProductMainCard from "@/components/products/product-main-card";
 import ProductsContainer from "@/components/products/products-container";
-interface ProductPageProps {
+export interface ProductProps {
   params: Promise<{
     slug: string;
   }>;
 }
-export default async function ProductCategoryPage({
-  params,
-}: ProductPageProps) {
+export default async function ProductCategoryPage({ params }: ProductProps) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   const products = await getProductsByCategory(slug);

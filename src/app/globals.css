@@ -55,7 +55,13 @@ html {
   }
 
   button {
-    @apply cursor-pointer text-white;
+    background: #5080e6;
+    background: radial-gradient(
+      circle,
+      rgba(11, 137, 205, 0.415) 0%,
+      rgba(5, 83, 227, 0.6) 100%
+    );
+    @apply cursor-pointer flex items-center justify-center gap-1 min-w-32;
   }
   button[type="submit"] {
     @apply rounded-full p-2 bg-blue-600;
@@ -104,6 +110,7 @@ html {
 
     @apply text-white p-1 rounded-full;
   }
+
   .card-gradient {
     background: #0088ff;
     background: radial-gradient(
