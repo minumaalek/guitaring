@@ -4,18 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowBigLeft } from "lucide-react";
 import { logoutUser } from "@/actions/user-actions";
-export default function UserSidebarItems({ isTeacher, closeHandler }) {
-  const optionsMap = [
-    // { key: 0, title: "Home", href: "/(site)" },
-    { key: 1, title: "Edit profile", href: "edit-profile" },
-    { key: 2, title: "Checkout", href: "checkout" },
-    { key: 3, title: "Joined courses", href: "user-courses" },
-    ...(isTeacher
-      ? [{ key: 4, title: "My courses", href: "teacher-courses" }]
-      : []),
-    { key: 5, title: "Purchases", href: "purchases" },
-    { key: 6, title: "Settings", href: "settings" },
-  ];
+export default function UserSidebarItems({ role, closeHandler, optionsMap }) {
   const [selectedKey, setSelectedKey] = useState(0);
   const pathName = usePathname().split("/")[2];
   const router = useRouter();
@@ -25,7 +14,7 @@ export default function UserSidebarItems({ isTeacher, closeHandler }) {
         <ArrowBigLeft />
       </button>
       <Link href={"/account"}>
-        <h2>{isTeacher ? "Teacher" : "Student"} dashboard</h2>
+        <h2>{role} dashboard</h2>
       </Link>
       <div className="flex flex-col items-start w-full p-10 gap-2">
         {optionsMap.map((option) => {
@@ -33,7 +22,7 @@ export default function UserSidebarItems({ isTeacher, closeHandler }) {
 
           return (
             <Link
-              href={`/account/${option.href}`}
+              href={`/${role == "User" || role == "Teacher" ? "account" : "admin"}/${option.href}`}
               key={option.key}
               onClick={() => {
                 setSelectedKey(option.key);

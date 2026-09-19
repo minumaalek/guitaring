@@ -1,4 +1,5 @@
 import AdminSidebar from "@/components/admin/admin-sidebar";
+import PanelSideBar from "@/components/panel/panel-sidebar";
 import { requireAdmin } from "@/lib/admin-auth";
 
 export default async function AdminLayout({
@@ -10,7 +11,7 @@ export default async function AdminLayout({
 
   return (
     <div className="h-screen flex">
-      <AdminSidebar />
+      <PanelSideBar role={"Admin"} />
       <main className="flex-1 p-10 w-full">{children}</main>
     </div>
   );

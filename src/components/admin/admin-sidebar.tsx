@@ -3,15 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { adminLogout } from "@/actions/admin-actions";
 
-export default function AdminSidebar() {
-  const optionsMap = [
-    { key: 1, title: "Articles", href: "articles" },
-    { key: 2, title: "Products", href: "products" },
-    { key: 3, title: "Courses", href: "courses" },
-    { key: 4, title: "Teachers", href: "teachers" },
-    { key: 5, title: "Students", href: "students" },
-  ];
-
+export default function AdminSidebar({ optionsMap }) {
   const isSignInPage = usePathname().split("/")[2] == "signin" ? true : false;
   if (isSignInPage) return null;
   return (
