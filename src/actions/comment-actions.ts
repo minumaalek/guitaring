@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
+import { revalidatePath } from "next/cache";
 
 export async function createComment(
   targetType: "ARTICLE" | "PRODUCT" | "COURSE",
@@ -34,7 +35,7 @@ export async function createComment(
       userId: session.user.id,
     },
   });
-
+  revalidatePath("/");
   return {
     success: true,
     comment,

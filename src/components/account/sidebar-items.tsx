@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowBigLeft } from "lucide-react";
 import { logoutUser } from "@/actions/user-actions";
-export default function UserSidebarItems({ isTeacher }) {
+export default function UserSidebarItems({ isTeacher, closeHandler }) {
   const optionsMap = [
     // { key: 0, title: "Home", href: "/(site)" },
     { key: 1, title: "Edit profile", href: "edit-profile" },
@@ -20,7 +20,7 @@ export default function UserSidebarItems({ isTeacher }) {
   const pathName = usePathname().split("/")[2];
   const router = useRouter();
   return (
-    <div className="h-full w-1/4 main-gradient rounded-none shadow-2xl flex items-center justify-center flex-col">
+    <div className="h-full  flex items-center justify-center flex-col">
       <button onClick={() => router.back()}>
         <ArrowBigLeft />
       </button>
@@ -35,7 +35,10 @@ export default function UserSidebarItems({ isTeacher }) {
             <Link
               href={`/account/${option.href}`}
               key={option.key}
-              onClick={() => setSelectedKey(option.key)}
+              onClick={() => {
+                setSelectedKey(option.key);
+                closeHandler();
+              }}
             >
               <div
                 className={` ${isSelected ? "bg-blue-500" : "bg-blue-500/50"} p-1 w-60 rounded-md text-xl`}

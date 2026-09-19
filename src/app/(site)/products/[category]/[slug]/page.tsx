@@ -15,7 +15,6 @@ export default async function ProductCategoryPage({ params }: ProductProps) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   const products = await getProductsByCategory(slug);
-  console.log(products);
   if (product)
     return (
       <ProductPage product={product} addProductToCart={addProductToCart} />

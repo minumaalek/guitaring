@@ -1,10 +1,9 @@
 "use client";
 
-import { X, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { cloneElement } from "react";
 
-export default function BurgerMenu({ coursesCategories, productsCategories }) {
+export default function BurgerMenu({ children }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -41,62 +40,7 @@ export default function BurgerMenu({ coursesCategories, productsCategories }) {
           onClick={(e) => e.stopPropagation()}
           className={`md:w-1/3 w-3/4  ${menuVisible ? "translate-x-0" : "-translate-x-full"} transition-all duration-500 h-full bg-blue-500/95 left-0 top-0  p-2 md:p-10 flex flex-col items-center `}
         >
-          <div className="flex flex-col items-start justify-start pl-2 pt-10 gap-3 w-full h-full categories-list">
-            <div className="flex flex-col categories-list">
-              <p>Products</p>
-              <ul className="flex flex-col gap-1">
-                {productsCategories.map((category) => {
-                  return (
-                    <li key={category.id}>
-                      <Link
-                        href={`/products/${category.slug}`}
-                        onClick={closeHandler}
-                      >
-                        <div className="flex items-center justify-between w-full bg-blue-400/20 p-1 rounded-md">
-                          <span>{category.name}</span>
-                          <ChevronRight />
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className="flex flex-col categories-list">
-              <p>Courses</p>
-              <ul className="flex flex-col gap-1">
-                {coursesCategories.map((category) => {
-                  return (
-                    <li key={category.id}>
-                      <Link
-                        href={`/courses/${category.slug}`}
-                        onClick={closeHandler}
-                      >
-                        <div className="flex items-center justify-between w-full bg-blue-400/20 p-1 rounded-md">
-                          <span>{category.name}</span>
-                          <ChevronRight />
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2 w-full h-full mt-5 ">
-              <Link href={`/blog`} onClick={closeHandler} className="w-full">
-                <div className="flex items-center justify-between w-full bg-blue-400/20  p-1 rounded-md">
-                  <p>Blog</p>
-                  <ChevronRight />
-                </div>
-              </Link>
-              <Link href={`/about`} onClick={closeHandler} className="w-full">
-                <div className="flex items-center justify-between w-full bg-blue-400/20 p-1 rounded-md">
-                  <p>About</p>
-                  <ChevronRight />
-                </div>
-              </Link>
-            </div>
-          </div>
+          {cloneElement(children, { closeHandler })}{" "}
         </div>
       </div>
     </>

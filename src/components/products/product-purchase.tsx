@@ -12,7 +12,7 @@ type ProductActionProps = {
   inCart: boolean;
 };
 
-export default function ProductAction({
+export default function ProductPurchase({
   productId,
   inCart,
 }: ProductActionProps) {

@@ -45,7 +45,7 @@ html {
     @apply transition-all duration-200;
   }
   h1 {
-    @apply text-3xl font-extrabold;
+    @apply md:text-3xl text-2xl font-extrabold;
   }
   h2 {
     @apply text-xl font-semibold;
@@ -61,7 +61,7 @@ html {
       rgba(11, 137, 205, 0.415) 0%,
       rgba(5, 83, 227, 0.6) 100%
     );
-    @apply cursor-pointer flex items-center justify-center gap-1 min-w-32;
+    @apply cursor-pointer flex items-center justify-center gap-1 min-w-32 px-4 py-2 rounded-full text-white font-semibold;
   }
   button[type="submit"] {
     @apply rounded-full p-2 bg-blue-600;
@@ -127,7 +127,7 @@ html {
     @apply text-base font-semibold;
   }
   .old-price {
-    @apply line-through text-sm;
+    @apply line-through text-base text-gray-600;
   }
 
   .price::before,

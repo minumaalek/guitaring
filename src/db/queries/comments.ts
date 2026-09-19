@@ -5,5 +5,8 @@ export async function getCommentsByTarget(targetType, targetId) {
       targetType,
       targetId,
     },
+    include: {
+      user: true,
+    },
   });
 }

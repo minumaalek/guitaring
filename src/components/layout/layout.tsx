@@ -1,6 +1,7 @@
 import Navbar from "../modules/navbar";
 import BurgerMenu from "../menu/burger-menu";
 import { getNavbarCategories } from "@/db/queries/categories";
+import CategoriesList from "../menu/categories-list";
 
 export default async function Layout({ children }) {
   const coursesCategories = await getNavbarCategories("courses");
@@ -9,10 +10,13 @@ export default async function Layout({ children }) {
     <>
       <div className="flex justify-start items-center gap-2 bg-blue-500/70 backdrop-blur-sm p-2 w-full sticky top-0 z-50 border-b border-white/10 shadow-md shadow-black/10">
         <div className="md:hidden">
-          <BurgerMenu
-            productsCategories={productsCategories}
-            coursesCategories={coursesCategories}
-          />
+          <BurgerMenu>
+            <CategoriesList
+              productsCategories={productsCategories}
+              coursesCategories={coursesCategories}
+              // closeHandler={closeHandler}
+            />
+          </BurgerMenu>
         </div>
         <Navbar
           productsCategories={productsCategories}
