@@ -2,43 +2,59 @@
 
 import { useTransition, useState } from "react";
 import {
-  addCourseToCheckout,
-  removeCourseFromCheckout,
+  addCourseToCart,
+  removeCourseFromCart,
 } from "@/actions/course-actions";
+import { toast } from "sonner";
 
 export default function CoursePurchase({ courseId, enrollmentStatus }) {
-  const [status, setStatus] = useState(enrollmentStatus);
+  const [isInCart, setIsInCart] = useState(enrollmentStatus);
   const [isPending, startTransition] = useTransition();
 
   function handleAdd() {
     startTransition(async () => {
-      await addCourseToCheckout(courseId);
-      setStatus("PENDING");
+      const result = await addCourseToCart(courseId);
+
+      if (result.success) {
+        setIsInCart(true);
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
     });
   }
 
   function handleRemove() {
     startTransition(async () => {
-      await removeCourseFromCheckout(courseId);
-      setStatus(null);
+      const result = await removeCourseFromCart(courseId);
+
+      if (result.success) {
+        setIsInCart(false);
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
     });
   }
 
-  if (status === "COMPLETED") {
-    return <button disabled>Purchased</button>;
-  }
-
-  if (status === "PENDING") {
-    return (
-      <button onClick={handleRemove} disabled={isPending}>
-        {isPending ? "Removing..." : "Remove"}
-      </button>
-    );
-  }
+  // if (status === "COMPLETED") {
+  //   return <button disabled>Purchased</button>;
+  // }
 
   return (
-    <button onClick={handleAdd} disabled={isPending}>
-      {isPending ? "Adding..." : "Enroll"}
+    <button
+      type="button"
+      disabled={isPending}
+      onClick={isInCart ? handleRemove : handleAdd}
+      className="bg-blue-300 cursor-pointer px-4 py-2 flex gap-1 items-center justify-center main-gradient"
+    >
+      {isPending
+        ? isInCart
+          ? "Removing..."
+          : "Adding..."
+        : isInCart
+          ? "Enroll"
+          : "Cancel"}
     </button>
   );
 }

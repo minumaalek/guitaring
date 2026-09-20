@@ -41,11 +41,14 @@ export async function enrollInCourse(courseId: number) {
   };
 }
 
-export async function removeCourseFromCheckout(courseId: number) {
+export async function removeCourseFromCart(courseId: number) {
   const session = await auth();
 
   if (!session?.user?.id) {
-    throw new Error("Unauthorized");
+    return {
+      success: false,
+      message: "Unauthorized",
+    };
   }
 
   const enrollment = await db.courseEnrollment.findUnique({
@@ -58,11 +61,17 @@ export async function removeCourseFromCheckout(courseId: number) {
   });
 
   if (!enrollment) {
-    throw new Error("Course is not in checkout");
+    return {
+      success: false,
+      message: "Course is not in checkout",
+    };
   }
 
   if (enrollment.status === "COMPLETED") {
-    throw new Error("Course has already been purchased");
+    return {
+      success: false,
+      message: "Course has already been purchased",
+    };
   }
 
   await db.courseEnrollment.delete({
@@ -76,14 +85,18 @@ export async function removeCourseFromCheckout(courseId: number) {
 
   return {
     success: true,
+    message: "Enrollment is cancelled.",
   };
 }
 
-export async function addCourseToCheckout(courseId: number) {
+export async function addCourseToCart(courseId: number) {
   const session = await auth();
 
   if (!session?.user?.id) {
-    throw new Error("Unauthorized");
+    return {
+      success: false,
+      message: "Unauthorized",
+    };
   }
 
   const course = await db.course.findUnique({
@@ -93,7 +106,10 @@ export async function addCourseToCheckout(courseId: number) {
   });
 
   if (!course) {
-    throw new Error("Course not found");
+    return {
+      success: false,
+      message: "Course not found",
+    };
   }
 
   const enrollment = await db.courseEnrollment.findUnique({
@@ -106,7 +122,10 @@ export async function addCourseToCheckout(courseId: number) {
   });
 
   if (enrollment?.status === "COMPLETED") {
-    throw new Error("Course already purchased");
+    return {
+      success: false,
+      message: "Course already purchased",
+    };
   }
 
   await db.courseEnrollment.upsert({
@@ -128,6 +147,7 @@ export async function addCourseToCheckout(courseId: number) {
 
   return {
     success: true,
+    message: "You enrolled in this course successfully!",
   };
 }
 

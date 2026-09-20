@@ -6,6 +6,7 @@ import {
   removeProductFromCart,
 } from "@/actions/product-actions";
 import { ShoppingBasket } from "lucide-react";
+import { toast } from "sonner";
 
 type ProductActionProps = {
   productId: number;
@@ -21,15 +22,27 @@ export default function ProductPurchase({
 
   function handleAdd() {
     startTransition(async () => {
-      await addProductToCart(productId);
-      setIsInCart(true);
+      const result = await addProductToCart(productId);
+
+      if (result.success) {
+        setIsInCart(true);
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
     });
   }
 
   function handleRemove() {
     startTransition(async () => {
-      await removeProductFromCart(productId);
-      setIsInCart(false);
+      const result = await removeProductFromCart(productId);
+
+      if (result.success) {
+        setIsInCart(false);
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
     });
   }
 

@@ -7,55 +7,75 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { productSchema } from "@/lib/validations";
 
 export async function addProductToCart(productId: number) {
-  const session = await auth();
+  try {
+    const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized");
-  }
+    if (!session?.user?.id) {
+      return {
+        success: false,
+        message: "You must be logged in to add products to your cart.",
+      };
+    }
 
-  const product = await db.product.findUnique({
-    where: {
-      id: productId,
-    },
-  });
+    const product = await db.product.findUnique({
+      where: {
+        id: productId,
+      },
+    });
 
-  if (!product) {
-    throw new Error("Product not found");
-  }
-  const cart = await db.cart.upsert({
-    where: {
-      userId: session.user.id,
-    },
-    create: {
-      userId: session.user.id,
-    },
-    update: {},
-  });
+    if (!product) {
+      return {
+        success: false,
+        message: "Product not found.",
+      };
+    }
 
-  await db.cartItem.upsert({
-    where: {
-      cartId_productId: {
+    const cart = await db.cart.upsert({
+      where: {
+        userId: session.user.id,
+      },
+      create: {
+        userId: session.user.id,
+      },
+      update: {},
+    });
+
+    await db.cartItem.upsert({
+      where: {
+        cartId_productId: {
+          cartId: cart.id,
+          productId,
+        },
+      },
+      create: {
         cartId: cart.id,
         productId,
       },
-    },
-    create: {
-      cartId: cart.id,
-      productId,
-    },
-    update: {},
-  });
+      update: {},
+    });
 
-  return {
-    success: true,
-  };
+    return {
+      success: true,
+      message: "Product is added to cart!",
+    };
+  } catch (error) {
+    console.error("Add product to cart error:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong. Please try again.",
+    };
+  }
 }
 
 export async function removeProductFromCart(productId: number) {
   const session = await auth();
 
   if (!session?.user?.id) {
-    throw new Error("Unauthorized");
+    return {
+      success: false,
+      message: "Unauthorized",
+    };
   }
 
   const cart = await db.cart.findUnique({
@@ -65,7 +85,10 @@ export async function removeProductFromCart(productId: number) {
   });
 
   if (!cart) {
-    throw new Error("Cart not found");
+    return {
+      success: false,
+      message: "Cart is not found",
+    };
   }
 
   const cartItem = await db.cartItem.findUnique({
@@ -78,7 +101,10 @@ export async function removeProductFromCart(productId: number) {
   });
 
   if (!cartItem) {
-    throw new Error("Product is not in cart");
+    return {
+      success: false,
+      message: "Product is not in cart",
+    };
   }
 
   await db.cartItem.delete({
@@ -89,6 +115,7 @@ export async function removeProductFromCart(productId: number) {
 
   return {
     success: true,
+    message: "Product is removed from your cart.",
   };
 }
 
