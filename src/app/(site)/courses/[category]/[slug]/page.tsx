@@ -8,7 +8,13 @@ export default async function CourseCategoryPage({ params }) {
   const { slug } = await params;
   const course = await getCourseBySlug(slug);
   const courses = await getCoursesByCategory(slug);
-  if (course) return <CoursePage slug={slug} />;
+  if (course)
+    return (
+      <div className="h-screen w-screen">
+        {" "}
+        <CoursePage slug={slug} />
+      </div>
+    );
   return (
     <div>
       <ItemsContainer empty={!courses.length && true} subCategories={[]}>

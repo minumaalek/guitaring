@@ -53,11 +53,7 @@ export default async function ProductPage({ product }) {
             </div>
             <div className="flex-col-center w-full gap-5">
               <div className="w-full md:w-2/3 h-40">
-                <p className="w-full">
-                  {description} Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Placeat iusto, temporibus impedit eligendi
-                  soluta itaque voluptatem nisi veritatis accusantium animi!
-                </p>
+                <p className="w-full">{description}</p>
               </div>
               <div className="md:w-2/3 h-40 bg-blue-400/50 rounded-2xl p-5 flex flex-col justify-between gap-3">
                 <div className="grid grid-cols-2">

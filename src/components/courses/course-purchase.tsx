@@ -7,7 +7,7 @@ import {
 } from "@/actions/course-actions";
 import { toast } from "sonner";
 
-export default function CoursePurchase({ courseId, enrollmentStatus }) {
+export default function CourseEnrollment({ courseId, enrollmentStatus }) {
   const [isInCart, setIsInCart] = useState(enrollmentStatus);
   const [isPending, startTransition] = useTransition();
 
