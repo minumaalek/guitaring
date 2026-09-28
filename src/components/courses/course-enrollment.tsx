@@ -46,7 +46,7 @@ export default function CourseEnrollment({ courseId, enrollmentStatus }) {
       type="button"
       disabled={isPending}
       onClick={isInCart ? handleRemove : handleAdd}
-      className="bg-blue-300 cursor-pointer px-4 py-2 flex gap-1 items-center justify-center main-gradient"
+      className="bg-blue-300 w-full cursor-pointer px-4 py-2 flex gap-1 items-center justify-center main-gradient"
     >
       {isPending
         ? isInCart
