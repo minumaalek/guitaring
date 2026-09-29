@@ -52,12 +52,12 @@ export default async function CoursePage({ slug }) {
           <h1>{courseItem.title}</h1>
         </div>
         <div className=" w-full h-full flex justify-center relative">
-          <div className="h-1/2 md:h-96 w-full md:w-2/3 p-6 card md:flex flex-col gap-2 sticky grid grid-cols-2">
+          <div className="h-full md:h-96 w-full md:w-2/3 p-6 card md:flex flex-col gap-2 sticky grid grid-cols-2">
             {infoMap.map((item) => {
               return (
                 <div
                   key={item.key}
-                  className={`flex gap-1 items-center h-20 md:h-5 flex-col iconic-card ${item.title == "Topic" && "col-span-2"}`}
+                  className={`flex gap-1 items-center h-20 md:h-5 flex-col md:flex-row iconic-card ${item.title == "Topic" && "col-span-2"}`}
                 >
                   {item.icon}
                   <span>{item.title}</span>

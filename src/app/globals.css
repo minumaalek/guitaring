@@ -162,7 +162,7 @@ html {
     @apply text-xl;
   }
   .iconic-card {
-    @apply border-2 border-blue-400 rounded-md p-1;
+    @apply border-2 border-blue-400 md:border-none rounded-md p-1;
   }
   .iconic-card svg {
     @apply size-8 md:size-6 stroke-blue-800;
