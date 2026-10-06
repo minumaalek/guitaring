@@ -53,8 +53,8 @@ export default function CourseEnrollment({ courseId, enrollmentStatus }) {
           ? "Removing..."
           : "Adding..."
         : isInCart
-          ? "Enroll"
-          : "Cancel"}
+          ? "Cancel"
+          : "Enroll"}
     </button>
   );
 }
