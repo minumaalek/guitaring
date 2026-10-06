@@ -7,6 +7,7 @@ import { getCoursesByCategory } from "@/db/queries/courses";
 import { getSubCategories } from "@/db/queries/categories";
 import CourseCard from "@/components/courses/course-card";
 import ItemsContainer from "@/components/modules/items-container";
+import CoursesContainer from "@/components/courses/courses-container";
 
 export default async function CoursesCategoryPage({
   params,
@@ -16,14 +17,14 @@ export default async function CoursesCategoryPage({
   const subCategories = await getSubCategories(category, null);
   return (
     <div>
-      <ItemsContainer
+      <CoursesContainer
         empty={!courses.length && true}
         subCategories={subCategories}
       >
         {courses.map((course, i) => {
           return <CourseCard key={i} course={course} />;
         })}
-      </ItemsContainer>
+      </CoursesContainer>
     </div>
   );
 }

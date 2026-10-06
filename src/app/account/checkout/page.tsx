@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
     getPendingProducts(userId),
     getPendingCourses(userId),
   ]);
-  console.log(products, courses);
+  console.log(courses);
   return (
     <div>
       <section>

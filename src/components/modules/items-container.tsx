@@ -24,7 +24,7 @@ export default function ItemsContainer({ empty, children, subCategories }) {
 
       <div className="w-full h-full flex-col-center">
         {!empty ? (
-          <div className="grid grid-cols-4 place-items-center">{children}</div>
+          <div className="grid grid-cols-4 place-items-center ">{children}</div>
         ) : (
           <p>Nothing yet</p>
         )}
