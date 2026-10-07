@@ -23,17 +23,18 @@ export async function enrollInCourse(courseId: number) {
     throw new Error("Course not found");
   }
 
-  await db.user.update({
+  await db.courseEnrollment.upsert({
     where: {
-      id: session.user.id,
-    },
-    data: {
-      courses: {
-        connect: {
-          id: courseId,
-        },
+      userId_courseId: {
+        userId: session.user.id,
+        courseId,
       },
     },
+    create: {
+      userId: session.user.id,
+      courseId,
+    },
+    update: {},
   });
 
   return {

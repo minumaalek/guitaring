@@ -5,7 +5,7 @@ export default function PanelSideBar({ role }) {
   let optionsMap;
   if (role == "Teacher" || role == "User")
     optionsMap = [
-      // { key: 0, title: "Home", href: "/(site)" },
+      { key: 0, title: "Home", href: "/" },
       { key: 1, title: "Edit profile", href: "edit-profile" },
       { key: 2, title: "Checkout", href: "checkout" },
       { key: 3, title: "Joined courses", href: "user-courses" },
@@ -17,6 +17,7 @@ export default function PanelSideBar({ role }) {
     ];
   else if (role == "Admin")
     optionsMap = [
+      { key: 0, title: "Home", href: "/" },
       { key: 1, title: "Articles", href: "articles" },
       { key: 2, title: "Products", href: "products" },
       { key: 3, title: "Courses", href: "courses" },
@@ -25,14 +26,7 @@ export default function PanelSideBar({ role }) {
     ];
   return (
     <div className="">
-      <div className="md:hidden">
-        <BurgerMenu>
-          <SidebarItems role={role} optionsMap={optionsMap} />
-        </BurgerMenu>
-      </div>
-      <div className="hidden md:flex w-full h-full main-gradient rounded-none shadow-2xl">
-        <SidebarItems role={role} optionsMap={optionsMap} />
-      </div>
+      <SidebarItems role={role} optionsMap={optionsMap} />
     </div>
   );
 }

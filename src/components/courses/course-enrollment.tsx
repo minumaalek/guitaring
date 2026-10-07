@@ -1,15 +1,18 @@
 "use client";
 
-import { useTransition, useState } from "react";
+import { useTransition, useState, use } from "react";
 import {
   addCourseToCart,
   removeCourseFromCart,
 } from "@/actions/course-actions";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CourseEnrollment({ courseId, enrollmentStatus }) {
   const [isInCart, setIsInCart] = useState(enrollmentStatus);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   function handleAdd() {
     startTransition(async () => {
@@ -18,6 +21,7 @@ export default function CourseEnrollment({ courseId, enrollmentStatus }) {
       if (result.success) {
         setIsInCart(true);
         toast.success(result.message);
+        router.refresh();
       } else {
         toast.error(result.message);
       }
@@ -31,6 +35,7 @@ export default function CourseEnrollment({ courseId, enrollmentStatus }) {
       if (result.success) {
         setIsInCart(false);
         toast.success(result.message);
+        router.refresh();
       } else {
         toast.error(result.message);
       }

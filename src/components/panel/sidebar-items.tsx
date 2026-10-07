@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowBigLeft } from "lucide-react";
 import { logoutUser } from "@/actions/user-actions";
 export default function UserSidebarItems({ role, closeHandler, optionsMap }) {
   const [selectedKey, setSelectedKey] = useState(0);
@@ -10,9 +9,6 @@ export default function UserSidebarItems({ role, closeHandler, optionsMap }) {
   const router = useRouter();
   return (
     <div className="h-full  flex items-center justify-center flex-col">
-      <button onClick={() => router.back()}>
-        <ArrowBigLeft />
-      </button>
       <Link href={"/account"}>
         <h2>{role} dashboard</h2>
       </Link>
@@ -22,7 +18,11 @@ export default function UserSidebarItems({ role, closeHandler, optionsMap }) {
 
           return (
             <Link
-              href={`/${role == "User" || role == "Teacher" ? "account" : "admin"}/${option.href}`}
+              href={
+                option.href === "/"
+                  ? "/"
+                  : `/${role === "User" || role === "Teacher" ? "account" : "admin"}/${option.href}`
+              }
               key={option.key}
               onClick={() => {
                 setSelectedKey(option.key);

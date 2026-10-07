@@ -7,7 +7,7 @@ import {
 } from "@/actions/product-actions";
 import { ShoppingBasket } from "lucide-react";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 type ProductActionProps = {
   productId: number;
   inCart: boolean;
@@ -19,7 +19,7 @@ export default function ProductPurchase({
 }: ProductActionProps) {
   const [isInCart, setIsInCart] = useState(inCart);
   const [isPending, startTransition] = useTransition();
-
+  const router = useRouter();
   function handleAdd() {
     startTransition(async () => {
       const result = await addProductToCart(productId);
@@ -27,6 +27,7 @@ export default function ProductPurchase({
       if (result.success) {
         setIsInCart(true);
         toast.success(result.message);
+        router.refresh();
       } else {
         toast.error(result.message);
       }
@@ -40,6 +41,7 @@ export default function ProductPurchase({
       if (result.success) {
         setIsInCart(false);
         toast.success(result.message);
+        router.refresh();
       } else {
         toast.error(result.message);
       }
