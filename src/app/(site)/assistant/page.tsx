@@ -19,7 +19,7 @@ export default function AssistantPage() {
             type="text"
             name="content"
             placeholder="What's in your mind?"
-            className="w-full rounded-xl border"
+            className="w-1/3 rounded-xl border"
           />
 
           <button type="submit" className="absolute right-0">
